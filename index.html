@@ -1,7 +1,49 @@
 <!DOCTYPE html>
 <!--
   BAM — Behavior Alignment Matrix · Teilnehmerversion
-  MindnessConsult · Version 1.5
+  MindnessConsult · Version 1.11
+
+  Änderungen zu 1.10:
+  - Item 17 ausgetauscht: "Ausscheidende Mitarbeitende werden würdevoll verabschiedet"
+    (zu seltener Sonderfall, oft mangels Erfahrung nicht beurteilbar) ersetzt durch
+    "Wer über längere Zeit stark belastet ist, bekommt das sichtbar anerkannt"
+    (Anerkennung bei Überlastung, Wertschätzungs-Perspektive, abgegrenzt von Item 53
+    das denselben Kontext aus Sicht praktischer Unterstützung misst). Item 20
+    (Verankerung des Abschieds-Ablaufs) bleibt unverändert.
+
+  Änderungen zu 1.9:
+  - Item 14 vereinfacht: redundante Parenthese "(nicht nur im Jahresgespräch)"
+    gestrichen (bereits durch "im Alltag" abgedeckt). Hierarchie-Zusatz bleibt, da er
+    hier inhaltlich sinnvoll ist (faire Anerkennung über alle Ebenen).
+
+  Änderungen zu 1.8:
+  - Item 22 korrigiert (Einzelfix aus der zweiten Prüfung, nicht Teil der 6
+    Prioritäten): "ernst genommen"/"wertgeschätzt" waren kaum trennbar, Hierarchie-
+    Zusatz passte konzeptionell nicht zu Wertschätzung. Neu: "Kundenfeedback wird
+    respektvoll aufgenommen und nicht vorschnell abgewertet." Bewusste Ausnahme vom
+    sonst einheitlichen Hierarchie-Wording bei Fragetyp 2.
+
+  Änderungen zu 1.7:
+  - Verankerungsskala (alle 15 Fragetyp-4-Items) auf zweizeilige Buttons umgestellt:
+    jede Zahl 1-5 trägt jetzt ihr eigenes Kurzlabel darunter (z. B. "3 / selten
+    angewendet"), statt nur die Endpunkte 1 und 5 zu beschriften. Grund: die
+    Zwischenstufen der Verankerungsskala sind nicht selbsterklärend wie bei der
+    Verhaltensskala (fast nie...fast immer). Verhaltensskala unverändert (Endpunkte
+    reichen dort weiterhin aus).
+
+  Änderungen zu 1.6:
+  - Intro-Hinweis final geschärft: "wie du es in deinem Umfeld erlebst" statt "was du
+    bei anderen erlebst" (Fokus auf Klima/Kultur statt auf einzelne Personen); "bei
+    Kolleg:innen" statt "deine Führung" (Führungskraft wird ohnehin in den
+    feld-spezifischen Bezugshinweisen separat benannt).
+
+  Änderungen zu 1.5:
+  - Intro-Hinweis vereinfacht: die logisch unsaubere Formulierung "aus deiner eigenen
+    Erfahrung heraus – nicht dein eigenes Verhalten" entfernt, auf vier kurze, klare
+    Sätze reduziert (Zeitraum, Bewertungsobjekt, Bezug je Abschnitt).
+  - Übergang zur Maßnahmenfestlegung ergänzt: statt den Wechsel von Fremdbeobachtung zu
+    Eigenverantwortung unausgesprochen zu lassen, kündigt ein kurzer Satz direkt vor den
+    Potenzialpunkten ("Jetzt geht's um dich...") den Perspektivwechsel explizit an.
 
   Änderungen zu 1.4 (finaler Prüf-Loop, entspricht v3/„v2.1" des Fragenkatalogs):
   - Beurteilungszeitraum ergänzt: einheitlich 12 Monate für alle Felder.
@@ -86,6 +128,10 @@
   .qtext{ font-size:13.5px; line-height:1.4; margin-top:4px; }
   .scale-row{ display:flex; gap:6px; margin-top:8px; }
   .scale-btn{ flex:1; text-align:center; padding:9px 0; border:1.6px solid var(--navy); background:#fff; color:var(--navy); cursor:pointer; font-family:'Anton',sans-serif; font-size:15px; }
+  .scale-btn.scale-btn-labeled{ padding:8px 3px; display:flex; flex-direction:column; align-items:center; gap:2px; }
+  .scale-btn-labeled .sb-num{ font-family:'Anton',sans-serif; font-size:15px; line-height:1; }
+  .scale-btn-labeled .sb-label{ font-family:'Inter',sans-serif; font-weight:500; font-size:9.5px; line-height:1.2; color:#666; text-transform:none; }
+  .scale-btn.sel .sb-label{ color:var(--cream); }
   .scale-btn.sel{ background:var(--navy); color:var(--cream); }
   .scale-caption{ display:flex; justify-content:space-between; font-size:9.5px; color:#999; margin-top:3px; }
 
@@ -202,7 +248,7 @@
 
   <div class="footnote">
     Diese Ansicht zeigt ausschließlich deine eigenen Antworten. Eine teamweite, aggregierte Auswertung über alle Teilnehmenden entsteht erst, wenn deine/dein Berater:in die heruntergeladenen Einzelergebnisse zusammenführt — diese Seite selbst führt keine Daten zusammen und sendet nichts an einen Server.<br>
-    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.5 · Fragenkatalog: 5 Kernwerte, 60 Basisfragen
+    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.11 · Fragenkatalog: 5 Kernwerte, 60 Basisfragen
   </div>
 
 </div>
@@ -215,9 +261,9 @@ const DATA = {
     "Kunden & Markt": { items:[9,10,11,12], q:["Lieferzeiten und Zusagen gegenüber Kunden werden realistisch kommuniziert.","Kunden werden aktiv informiert, sobald sich eine Zusage ändert — unabhängig davon, wer im Haus dafür verantwortlich ist.","Um Aufträge zu sichern, werden Kunden gelegentlich unrealistische Zusagen gemacht.","Für die Kommunikation bei Lieferverzug gibt es einen festen Ablauf, der bekannt ist und tatsächlich angewendet wird."] }
   },
   "Wertschätzung": {
-    "Alltag & Routinen": { items:[13,14,15,16], q:["In Meetings hört man einander aufmerksam und ohne Ablenkung zu.","Leistungen von Kolleg:innen werden im Alltag sichtbar anerkannt (nicht nur im Jahresgespräch) — unabhängig von Position oder Hierarchieebene.","Kritik wird eher vor der Gruppe geäußert als im vertraulichen Rahmen.","Für gegenseitige Anerkennung gibt es eine feste Gelegenheit, die bekannt ist und tatsächlich genutzt wird."] },
-    "Ausnahmesituationen": { items:[17,18,19,20], q:["Ausscheidende Mitarbeitende (Kündigung, Ruhestand) werden würdevoll verabschiedet.","Bei Konflikten wird respektvoll miteinander umgegangen, auch wenn es hitzig wird — unabhängig von Position oder Hierarchieebene.","Bei Krankheit oder spürbarem Leistungseinbruch wird eher Druck aufgebaut als Rücksicht genommen.","Für den Abschied von Mitarbeitenden gibt es einen vereinbarten Ablauf, der bekannt ist und tatsächlich angewendet wird."] },
-    "Kunden & Markt": { items:[21,22,23,24], q:["Über Kunden wird intern respektvoll gesprochen, auch wenn sie schwierig sind.","Kundenfeedback (auch kritisches) wird ernst genommen und wertgeschätzt — unabhängig davon, wer im Haus dafür zuständig ist.","Nach schwierigen Kundengesprächen wird abfällig über Kunden gesprochen.","Für einen respektvollen Umgangston gegenüber und über Kunden gibt es eine klare Erwartung (z. B. im Leitfaden), die bekannt ist und tatsächlich gelebt wird."] }
+    "Alltag & Routinen": { items:[13,14,15,16], q:["In Meetings hört man einander aufmerksam und ohne Ablenkung zu.","Leistungen von Kolleg:innen werden im Alltag sichtbar anerkannt — unabhängig von Position oder Hierarchieebene.","Kritik wird eher vor der Gruppe geäußert als im vertraulichen Rahmen.","Für gegenseitige Anerkennung gibt es eine feste Gelegenheit, die bekannt ist und tatsächlich genutzt wird."] },
+    "Ausnahmesituationen": { items:[17,18,19,20], q:["Wer über längere Zeit stark belastet ist, bekommt das sichtbar anerkannt.","Bei Konflikten wird respektvoll miteinander umgegangen, auch wenn es hitzig wird — unabhängig von Position oder Hierarchieebene.","Bei Krankheit oder spürbarem Leistungseinbruch wird eher Druck aufgebaut als Rücksicht genommen.","Für den Abschied von Mitarbeitenden gibt es einen vereinbarten Ablauf, der bekannt ist und tatsächlich angewendet wird."] },
+    "Kunden & Markt": { items:[21,22,23,24], q:["Über Kunden wird intern respektvoll gesprochen, auch wenn sie schwierig sind.","Kundenfeedback wird respektvoll aufgenommen und nicht vorschnell abgewertet.","Nach schwierigen Kundengesprächen wird abfällig über Kunden gesprochen.","Für einen respektvollen Umgangston gegenüber und über Kunden gibt es eine klare Erwartung (z. B. im Leitfaden), die bekannt ist und tatsächlich gelebt wird."] }
   },
   "Feedbackkultur & Transparenz": {
     "Alltag & Routinen": { items:[25,26,27,28], q:["Kolleg:innen und Führungskräfte geben zeitnah Rückmeldung zu beobachtetem Verhalten und Arbeitsergebnissen, ohne dass explizit danach gefragt werden muss.","Entscheidungen, die die eigene Arbeit betreffen, werden verständlich begründet — unabhängig von Position oder Hierarchieebene.","Kritik wird eher hinter dem Rücken der Betroffenen geäußert als direkt.","Für Feedback gibt es feste, wiederkehrende Gelegenheiten (z. B. regelmäßige Rückblicke, Einzelgespräche), die bekannt sind und tatsächlich genutzt werden."] },
@@ -255,13 +301,16 @@ const VERANKERUNG_LABELS = ["nicht vorhanden","kaum bekannt","selten angewendet"
 function scaleRow(itemNum, value, isRitual){
   let html = `<div class="scale-row" data-item="${itemNum}">`;
   for(let v=1; v<=5; v++){
-    html += `<div class="scale-btn ${value===v?'sel':''}" data-v="${v}">${v}</div>`;
+    if(isRitual){
+      const label = VERANKERUNG_LABELS[v-1].replace(' ', '<br>');
+      html += `<div class="scale-btn scale-btn-labeled ${value===v?'sel':''}" data-v="${v}"><div class="sb-num">${v}</div><div class="sb-label">${label}</div></div>`;
+    } else {
+      html += `<div class="scale-btn ${value===v?'sel':''}" data-v="${v}">${v}</div>`;
+    }
   }
-  html += `<div class="scale-btn ${value==='nb'?'sel':''}" data-v="nb" style="flex:0 0 auto; padding:9px 10px; font-family:'Barlow Condensed',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.03em;">n.b.</div>`;
+  html += `<div class="scale-btn ${value==='nb'?'sel':''} ${isRitual?'scale-btn-labeled':''}" data-v="nb" style="flex:0 0 auto; padding:9px 10px; font-family:'Barlow Condensed',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.03em;">n.b.</div>`;
   html += `</div>`;
-  if(isRitual){
-    html += `<div class="scale-caption"><span>1 · ${VERANKERUNG_LABELS[0]}</span><span>5 · ${VERANKERUNG_LABELS[4]}</span></div>`;
-  } else {
+  if(!isRitual){
     html += `<div class="scale-caption"><span>1 · fast nie</span><span>5 · fast immer</span></div>`;
   }
   return html;
@@ -340,7 +389,7 @@ function renderSurveyPage(){
         <input type="text" id="teamInput" placeholder="z. B. Vertrieb, Produktion..." value="${team}">
       </div>
       <div style="margin-top:16px; font-size:12.5px; line-height:1.55; color:#444; background:#FAF8F2; padding:12px 14px; border-left:4px solid var(--teal);">
-        Denk bei deiner Bewertung möglichst an deine Erfahrungen aus den <b>vergangenen 12 Monaten</b>. Beantworte die folgenden Fragen aus deiner eigenen Erfahrung heraus – nicht dein eigenes Verhalten, sondern das, was du bei anderen erlebst. Der genaue Bezug (eigenes Team, direkte Führung oder Kundenkontakt) steht jeweils zu Beginn eines Themenblocks.
+        Denk an die vergangenen 12 Monate. Bewerte nicht dich selbst, sondern wie du es in deinem Umfeld erlebst – im Team, bei Kolleg:innen oder im Kundenkontakt, je nach Abschnitt.
       </div>`;
   }
 
@@ -587,6 +636,7 @@ function renderResults(){
 
       <div class="matrix-caption">Deine größten Potenzialpunkte</div>
       <div class="intro" style="max-width:100%; margin-top:0;">Die drei Zellen mit dem größten Abstand zwischen Anspruch und gelebtem Verhalten — bewusst auf max. 3 begrenzt, damit es umsetzbar bleibt.</div>
+      <div class="intro" style="max-width:100%; margin-top:6px; font-weight:600; color:var(--navy);">Jetzt geht's um dich: Was willst du hier konkret verändern?</div>
       ${gapCardsHtml}
 
       ${renderFullAnswersBlock()}
@@ -613,7 +663,7 @@ function buildPayload(){
     wert: c.wert, feld: c.feld, ampel: c.ampel, avg: c.avg,
     action: actionTexts[c.wert+'||'+c.feld] || ''
   }));
-  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.5', answers, team: team || null, ts: Date.now(), actions };
+  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.11', answers, team: team || null, ts: Date.now(), actions };
 }
 
 // Diese Seite läuft rein im Browser (z. B. als statische GitHub-Pages-Seite) und hat keinen
