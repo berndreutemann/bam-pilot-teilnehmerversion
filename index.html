@@ -1,7 +1,22 @@
 <!DOCTYPE html>
 <!--
   BAM — Behavior Alignment Matrix · Teilnehmerversion
-  MindnessConsult · Version 1.11
+  MindnessConsult · Version 1.13
+
+  Änderungen zu 1.12 (Vereinfachungs-Loop, kritische Selbstprüfung "sind wir noch
+  einfach/pragmatisch?"):
+  - Streuungsregel aus der Ampel-Berechnung entfernt: ein Mittelwert >= 4,0 konnte
+    bisher bei "hoher Streuung" trotzdem nur Gelb ergeben, gestützt auf einen nie
+    validierten Platzhalter-Schwellenwert (spread >= 2). War der einzige der mehreren
+    Schwellenwerte im Auswertungsmodell, der das sichtbare Kundenergebnis verändert hat,
+    obwohl selbst unvalidiert. Ampel richtet sich jetzt ausschließlich nach dem
+    Mittelwert (>=4,0 Grün, 2,5-3,9 Gelb, <2,5 Rot). Label "Inkonsistent" entfällt.
+
+  Änderungen zu 1.11:
+  - Bezugshinweise für "Alltag & Routinen" und "Ausnahmesituationen" vereinfacht:
+    "dein eigenes Team und deine direkte Führungskraft" ersetzt durch "dein direktes
+    Umfeld (Kolleg:innen, unabhängig von Hierarchie)" - passt besser zu den
+    Fragetyp-2-Items, die ohnehin hierarchieübergreifend fragen.
 
   Änderungen zu 1.10:
   - Item 17 ausgetauscht: "Ausscheidende Mitarbeitende werden würdevoll verabschiedet"
@@ -248,7 +263,7 @@
 
   <div class="footnote">
     Diese Ansicht zeigt ausschließlich deine eigenen Antworten. Eine teamweite, aggregierte Auswertung über alle Teilnehmenden entsteht erst, wenn deine/dein Berater:in die heruntergeladenen Einzelergebnisse zusammenführt — diese Seite selbst führt keine Daten zusammen und sendet nichts an einen Server.<br>
-    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.11 · Fragenkatalog: 5 Kernwerte, 60 Basisfragen
+    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.13 · Fragenkatalog: 5 Kernwerte, 60 Basisfragen
   </div>
 
 </div>
@@ -330,18 +345,15 @@ function computeCellAmpel(q1, q2, q3raw, feld){
 
   const values = validIdx.map(i => i === 2 ? (6 - raw[2]) : raw[i]); // Reverse-Item (Index 2) invertieren
   const avg = values.reduce((a,b)=>a+b,0) / values.length;
-  const spread = values.length > 1 ? Math.max(...values) - Math.min(...values) : 0;
-  // TODO (vorläufig): Schwellenwert für "hohe Streuung" ist NICHT final validiert.
-  // Variance-/Konsistenzregel-Formel für den BAM-Score ist laut Methodik-Stand
-  // noch offen — spread >= 2 ist ein Platzhalter, kein festgelegter Wert.
-  const hoheStreuung = spread >= 2; // PROVISORISCH
 
   // Einheitliche Ampellogik für ALLE Felder (seit v3 / finaler Prüf-Loop — ersetzt die
   // frühere zweistufige Sonderregel für Ausnahmesituationen). Ausnahmesituationen
   // erhalten stattdessen zusätzlich ein Warnsignal unter 3,5, siehe AUSNAHME_HINWEIS.
+  // Seit v3 (Vereinfachungs-Loop): Ampel hängt ausschließlich vom Mittelwert ab —
+  // eine frühere Streuungsregel (unvalidierter Platzhalter-Schwellenwert) wurde bewusst
+  // entfernt, um keine Scheingenauigkeit in die Kunden-Ampel einzubauen.
   let ampel, label;
-  if(avg >= 4.0 && !hoheStreuung){ ampel='green'; label='Match'; }
-  else if(avg >= 4.0 && hoheStreuung){ ampel='amber'; label='Inkonsistent'; }
+  if(avg >= 4.0){ ampel='green'; label='Match'; }
   else if(avg >= 2.5){ ampel='amber'; label='Gap'; }
   else { ampel='red'; label='Mismatch'; }
 
@@ -394,8 +406,8 @@ function renderSurveyPage(){
   }
 
   const BEZUG_HINWEIS = {
-    "Alltag & Routinen": "Bezug: dein eigenes Team und deine direkte Führungskraft.",
-    "Ausnahmesituationen": "Bezug: dein eigenes Team und deine direkte Führungsebene – auch wenn eine Entscheidung höher fällt, zählt, wie sie bei euch ankommt.",
+    "Alltag & Routinen": "Bezug: dein direktes Umfeld (Kolleg:innen, unabhängig von Hierarchie).",
+    "Ausnahmesituationen": "Bezug: dein direktes Umfeld (Kolleg:innen, unabhängig von Hierarchie) – auch wenn eine Entscheidung höher fällt, zählt, wie sie bei euch ankommt.",
     "Kunden & Markt": "Bezug: dein Bereich im Zusammenspiel mit Kunden bzw. externen Kontakten – nicht das gesamte Unternehmen."
   };
 
@@ -663,7 +675,7 @@ function buildPayload(){
     wert: c.wert, feld: c.feld, ampel: c.ampel, avg: c.avg,
     action: actionTexts[c.wert+'||'+c.feld] || ''
   }));
-  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.11', answers, team: team || null, ts: Date.now(), actions };
+  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.13', answers, team: team || null, ts: Date.now(), actions };
 }
 
 // Diese Seite läuft rein im Browser (z. B. als statische GitHub-Pages-Seite) und hat keinen
