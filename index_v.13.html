@@ -1,30 +1,7 @@
 <!DOCTYPE html>
 <!--
   BAM — Behavior Alignment Matrix · Teilnehmerversion
-  MindnessConsult · Version 1.5
-
-  Änderungen zu 1.4 (finaler Prüf-Loop, entspricht v3/„v2.1" des Fragenkatalogs):
-  - Beurteilungszeitraum ergänzt: einheitlich 12 Monate für alle Felder.
-  - Fragetyp 2 bewusst unverändert gelassen (Status quo bestätigt, siehe Katalog v3).
-  - Alle 15 Fragetyp-4-Items umformuliert (Muster "bekannt und tatsächlich angewendet");
-    Skala umbenannt von "Instrumentenskala" zu "Verankerungsskala"/"Verankerungsgrad";
-    Fragetyp 4 umbenannt von "Ritual-/Instrument-Existenz" zu "Organisatorische Verankerung".
-  - Items 7, 43, 51 durch eigenständig beobachtbare Alternativen ersetzt (keine reine
-    Vorzeichenumkehr des Vorgänger-Items mehr).
-  - Ampellogik vereinheitlicht: Ausnahmesituationen nutzen jetzt dieselbe dreistufige
-    Ampel wie alle Felder, ersetzt die bisherige zweistufige Sonderregel. Stattdessen
-    zusätzliches Warnsignal (⚠) bei Werten unter 3,5 in diesem Feld.
-  - "nicht beurteilbar" (n.b.) als Antwortoption ergänzt: fließt nicht in den Mittelwert
-    ein, Zellenscore nur bei mindestens 2 von 3 beantworteten Verhaltensitems, Anteil
-    wird ausgewiesen, bei über 30% erscheint der Hinweis "eingeschränkte Aussagekraft".
-  - Alle 60 Fragetexte auf den überarbeiteten Katalog (v2) synchronisiert: entschärfte
-    Reverse-Item-Redundanzen, vereinfachter Jargon, korrigierte Zellenschieflagen,
-    einheitliches Hierarchie-Wording bei allen 15 Fragetyp-2-Items.
-  - Eigene Instrumentenskala für Fragetyp 4 (Ritual-/Instrument-Existenz) ergänzt
-    (nicht vorhanden … konsequent genutzt) statt der Verhaltensskala.
-  - Globale, gruppenbezogene Rahmen-Instruktion durch feld-bezogene Bewertungshinweise
-    ersetzt (eigenes Team/Führung bei Alltag & Ausnahmesituationen, eigener Bereich im
-    Kundenkontakt bei Kunden & Markt) – siehe Methodik-Entscheidung zum Bewertungsbezug.
+  MindnessConsult · Version 1.3
 
   Änderungen zu 1.2: Terminologie vereinheitlicht — "Culture Audit" durch "BAM-Audit"
   ersetzt (Title-Tag, H1), konsistent zu allen anderen BAM-Dokumenten. Die vorherige
@@ -202,7 +179,7 @@
 
   <div class="footnote">
     Diese Ansicht zeigt ausschließlich deine eigenen Antworten. Eine teamweite, aggregierte Auswertung über alle Teilnehmenden entsteht erst, wenn deine/dein Berater:in die heruntergeladenen Einzelergebnisse zusammenführt — diese Seite selbst führt keine Daten zusammen und sendet nichts an einen Server.<br>
-    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.5 · Fragenkatalog: 5 Kernwerte, 60 Basisfragen
+    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.3 · Fragenkatalog: 5 Kernwerte, 60 Basisfragen
   </div>
 
 </div>
@@ -210,29 +187,29 @@
 <script>
 const DATA = {
   "Verlässlichkeit": {
-    "Alltag & Routinen": { items:[1,2,3,4], q:["Termine und Deadlines werden im Team zuverlässig eingehalten.","Termine und Zusagen werden unabhängig von Position oder Hierarchieebene eingehalten — auch auf höheren Ebenen.","Zusagen aus Meetings verlaufen oft im Sand, ohne dass jemand nachhakt.","Für offene Zusagen gibt es ein festes Format (z. B. Tracker, Board), das bekannt ist und tatsächlich genutzt wird."] },
-    "Ausnahmesituationen": { items:[5,6,7,8], q:["Bei absehbaren Verzögerungen wird von sich aus informiert, bevor jemand nachfragen muss.","Auch unter Zeitdruck oder bei unerwarteten Hindernissen werden Zusagen eingehalten oder aktiv neu verhandelt — unabhängig von Position oder Hierarchieebene.","Unter Zeitdruck werden Zuständigkeiten für offene Zusagen häufig unklar.","Für den Fall, dass eine Zusage nicht eingehalten werden kann, gibt es eine klare Regelung, wer informiert wird, die bekannt ist und tatsächlich angewendet wird."] },
-    "Kunden & Markt": { items:[9,10,11,12], q:["Lieferzeiten und Zusagen gegenüber Kunden werden realistisch kommuniziert.","Kunden werden aktiv informiert, sobald sich eine Zusage ändert — unabhängig davon, wer im Haus dafür verantwortlich ist.","Um Aufträge zu sichern, werden Kunden gelegentlich unrealistische Zusagen gemacht.","Für die Kommunikation bei Lieferverzug gibt es einen festen Ablauf, der bekannt ist und tatsächlich angewendet wird."] }
+    "Alltag & Routinen": { items:[1,2,3,4], q:["Termine und Deadlines werden im Team zuverlässig eingehalten.","Termine und Zusagen werden unabhängig von Position oder Hierarchieebene eingehalten — auch auf höheren Ebenen.","Zusagen aus Meetings verlaufen oft im Sand, ohne dass jemand nachhakt.","Es gibt ein festes Format (z. B. Tracker, Board), um offene Zusagen sichtbar zu machen."] },
+    "Ausnahmesituationen": { items:[5,6,7,8], q:["Bei absehbaren Verzögerungen wird proaktiv informiert, bevor jemand nachfragen muss.","Auch unter Zeitdruck oder bei unerwarteten Hindernissen werden Zusagen eingehalten oder aktiv neu verhandelt.","Unter Druck werden Zusagen eher stillschweigend gebrochen, als dass rechtzeitig neu verhandelt wird.","Es existiert ein klarer Eskalationsweg für drohende Terminüberschreitungen oder nicht einhaltbare Zusagen."] },
+    "Kunden & Markt": { items:[9,10,11,12], q:["Lieferzeiten und Zusagen gegenüber Kunden werden realistisch kommuniziert.","Kunden werden aktiv informiert, sobald sich eine Zusage ändert.","Um Aufträge zu sichern, werden Kunden gelegentlich unrealistische Zusagen gemacht.","Es gibt einen definierten Prozess für die Kommunikation bei Lieferverzug."] }
   },
   "Wertschätzung": {
-    "Alltag & Routinen": { items:[13,14,15,16], q:["In Meetings hört man einander aufmerksam und ohne Ablenkung zu.","Leistungen von Kolleg:innen werden im Alltag sichtbar anerkannt (nicht nur im Jahresgespräch) — unabhängig von Position oder Hierarchieebene.","Kritik wird eher vor der Gruppe geäußert als im vertraulichen Rahmen.","Für gegenseitige Anerkennung gibt es eine feste Gelegenheit, die bekannt ist und tatsächlich genutzt wird."] },
-    "Ausnahmesituationen": { items:[17,18,19,20], q:["Ausscheidende Mitarbeitende (Kündigung, Ruhestand) werden würdevoll verabschiedet.","Bei Konflikten wird respektvoll miteinander umgegangen, auch wenn es hitzig wird — unabhängig von Position oder Hierarchieebene.","Bei Krankheit oder spürbarem Leistungseinbruch wird eher Druck aufgebaut als Rücksicht genommen.","Für den Abschied von Mitarbeitenden gibt es einen vereinbarten Ablauf, der bekannt ist und tatsächlich angewendet wird."] },
-    "Kunden & Markt": { items:[21,22,23,24], q:["Über Kunden wird intern respektvoll gesprochen, auch wenn sie schwierig sind.","Kundenfeedback (auch kritisches) wird ernst genommen und wertgeschätzt — unabhängig davon, wer im Haus dafür zuständig ist.","Nach schwierigen Kundengesprächen wird abfällig über Kunden gesprochen.","Für einen respektvollen Umgangston gegenüber und über Kunden gibt es eine klare Erwartung (z. B. im Leitfaden), die bekannt ist und tatsächlich gelebt wird."] }
+    "Alltag & Routinen": { items:[13,14,15,16], q:["In Meetings hört man einander aufmerksam und ohne Ablenkung zu.","Leistungen von Kolleg:innen werden im Alltag sichtbar anerkannt (nicht nur im Jahresgespräch).","Kritik wird eher vor der Gruppe geäußert als im vertraulichen Rahmen.","Es gibt ein Format, um sich gegenseitig Wertschätzung auszusprechen (z. B. Kudos, Shoutouts)."] },
+    "Ausnahmesituationen": { items:[17,18,19,20], q:["Ausscheidende Mitarbeitende (Kündigung, Ruhestand) werden würdevoll verabschiedet.","Bei Konflikten wird respektvoll miteinander umgegangen, auch wenn es hitzig wird.","Langjährige Leistungen geraten beim Abschied eines Mitarbeitenden oft in Vergessenheit.","Es existiert ein festgelegtes Offboarding-Ritual."] },
+    "Kunden & Markt": { items:[21,22,23,24], q:["Über Kunden wird intern respektvoll gesprochen, auch wenn sie schwierig sind.","Kundenfeedback (auch kritisches) wird als wertvoller Beitrag behandelt.","Nach schwierigen Kundengesprächen wird abfällig über Kunden gesprochen.","Es gibt eine klare Sprachregel/Kultur für den Umgangston gegenüber und über Kunden."] }
   },
   "Feedbackkultur & Transparenz": {
-    "Alltag & Routinen": { items:[25,26,27,28], q:["Kolleg:innen und Führungskräfte geben zeitnah Rückmeldung zu beobachtetem Verhalten und Arbeitsergebnissen, ohne dass explizit danach gefragt werden muss.","Entscheidungen, die die eigene Arbeit betreffen, werden verständlich begründet — unabhängig von Position oder Hierarchieebene.","Kritik wird eher hinter dem Rücken der Betroffenen geäußert als direkt.","Für Feedback gibt es feste, wiederkehrende Gelegenheiten (z. B. regelmäßige Rückblicke, Einzelgespräche), die bekannt sind und tatsächlich genutzt werden."] },
-    "Ausnahmesituationen": { items:[29,30,31,32], q:["Bei Fehlern wird offen nach Ursachen statt nach Schuldigen gesucht.","Eigene Fehler oder Unsicherheiten werden offen mitgeteilt — unabhängig von der Position.","Kritisches Feedback wird eher vermieden, um Konflikte zu umgehen oder aus Sorge vor Nachteilen.","Für kritisches Feedback an Vorgesetzte gibt es einen bekannten und vertraulich nutzbaren Weg."] },
-    "Kunden & Markt": { items:[33,34,35,36], q:["Kundenfeedback wird systematisch erfasst und intern geteilt.","Auch negatives Kundenfeedback wird offen im Team besprochen — unabhängig davon, wer davon betroffen ist.","Nach negativem Kundenfeedback wird zunächst nach Verantwortlichen gesucht, bevor über Verbesserungen gesprochen wird.","Für die Integration von Kundenfeedback in Verbesserungen gibt es einen festen Ablauf, der bekannt ist und tatsächlich angewendet wird."] }
+    "Alltag & Routinen": { items:[25,26,27,28], q:["Feedback wird im Alltag gegeben, ohne dass explizit danach gefragt werden muss.","Wichtige Entscheidungen sind für Betroffene nachvollziehbar.","Kritik wird eher hinter dem Rücken der Betroffenen geäußert als direkt.","Es gibt feste Formate für Feedback (z. B. Retrospektiven, 1:1-Gespräche)."] },
+    "Ausnahmesituationen": { items:[29,30,31,32], q:["Bei Fehlern wird offen nach Ursachen statt nach Schuldigen gesucht.","Eigene Fehler oder Unsicherheiten werden offen mitgeteilt — unabhängig von der Position.","Kritisches Feedback wird eher vermieden, wenn es Personen in einer höheren Position betrifft, aus Angst vor Konsequenzen.","Es gibt einen anonymen Kanal für kritisches Feedback (z. B. Pulsbefragung)."] },
+    "Kunden & Markt": { items:[33,34,35,36], q:["Kundenfeedback wird systematisch erfasst und intern geteilt.","Auch negatives Kundenfeedback wird offen im Team besprochen.","Negatives Kundenfeedback wird eher zurückgehalten als weitergegeben.","Es gibt einen definierten Prozess, wie Kundenfeedback in Verbesserungen einfließt."] }
   },
   "Innovation & Lernen": {
-    "Alltag & Routinen": { items:[37,38,39,40], q:["Mitarbeitende haben im Arbeitsalltag tatsächlich Zeit und Gelegenheit, neue Ideen zu erproben.","Verbesserungsvorschläge werden zeitnah aufgegriffen und geprüft — unabhängig von Position oder Hierarchieebene.","Neue Ideen werden meist mit Verweis auf Zeitmangel abgeblockt.","Für Ideen- und Verbesserungsarbeit gibt es ein festes Zeitbudget oder Format, das bekannt ist und tatsächlich genutzt wird."] },
-    "Ausnahmesituationen": { items:[41,42,43,44], q:["Gescheiterte Projekte werden offen analysiert, um daraus zu lernen.","Gut begründete Versuche werden auch dann anerkannt, wenn sie nicht zum gewünschten Ergebnis führen — unabhängig von Position oder Hierarchieebene.","Nach einem gescheiterten Versuch werden neue Ideen zunächst vorsichtiger oder gar nicht mehr eingebracht.","Für Erkenntnisse aus gescheiterten Vorhaben gibt es eine feste Gelegenheit zur Festhaltung, die bekannt ist und tatsächlich genutzt wird."] },
-    "Kunden & Markt": { items:[45,46,47,48], q:["Kundenfeedback fließt sichtbar in neue oder verbesserte Angebote ein.","Es wird aktiv nach Ideen für neue Lösungen bei Kunden gefragt — unabhängig davon, wer im Haus dafür zuständig ist.","Kundenanregungen zu neuen Ideen versanden meist ohne Rückmeldung.","Für die Einbindung von Kundenimpulsen in die Weiterentwicklung von Produkten, Dienstleistungen oder Abläufen gibt es einen festen Ablauf, der bekannt ist und tatsächlich angewendet wird."] }
+    "Alltag & Routinen": { items:[37,38,39,40], q:["Es gibt im Arbeitsalltag Raum, neue Ideen einzubringen und auszuprobieren.","Verbesserungsvorschläge werden zeitnah aufgegriffen und geprüft.","Neue Ideen werden meist mit Verweis auf Zeitmangel abgeblockt.","Es gibt ein festes Zeitbudget oder Format für Ideen- und Verbesserungsarbeit."] },
+    "Ausnahmesituationen": { items:[41,42,43,44], q:["Gescheiterte Projekte werden offen analysiert, um daraus zu lernen.","Risikobereitschaft wird auch dann anerkannt, wenn ein Vorhaben nicht gelingt.","Wer ein Projekt scheitern lässt, muss mit Sanktionen oder Ansehensverlust rechnen.","Es gibt ein Ritual, um aus gescheiterten Projekten Lernpunkte festzuhalten (z. B. Lessons-Learned-Formate)."] },
+    "Kunden & Markt": { items:[45,46,47,48], q:["Kundenfeedback fließt sichtbar in neue oder verbesserte Angebote ein.","Es wird aktiv nach Ideen für neue Lösungen bei Kunden gefragt.","Kundenanregungen zu neuen Ideen versanden meist ohne Rückmeldung.","Es gibt einen Prozess, um Kundenimpulse strukturiert in die Produktentwicklung einzuspeisen."] }
   },
   "Zusammenarbeit & Teamgeist": {
-    "Alltag & Routinen": { items:[49,50,51,52], q:["Informationen werden von sich aus geteilt, statt zurückgehalten zu werden.","Kolleg:innen unterstützen sich gegenseitig auch über Teamgrenzen hinweg — unabhängig von Position oder Hierarchieebene.","Wichtige Informationen erreichen andere Teams häufig erst, wenn Probleme entstanden sind.","Für informellen, teamübergreifenden Austausch gibt es eine feste Gelegenheit, die bekannt ist und tatsächlich genutzt wird."] },
-    "Ausnahmesituationen": { items:[53,54,55,56], q:["Bei Überlastung einzelner Kolleg:innen springt das Team zeitnah unterstützend ein.","Übergaben (z. B. bei Urlaub, Wechsel) laufen strukturiert und vollständig ab — unabhängig von Position oder Hierarchieebene.","Bei Konflikten zwischen Teams wird eher gegeneinander als miteinander gearbeitet.","Für Unterstützung bei Überlastung einzelner Kolleg:innen gibt es eine vereinbarte Vorgehensweise, die bekannt ist und tatsächlich angewendet wird."] },
-    "Kunden & Markt": { items:[57,58,59,60], q:["Die beteiligten Bereiche arbeiten bei Kundenanliegen an einer gemeinsamen Lösung.","Informationen zu Kunden werden zwischen den beteiligten Bereichen zuverlässig geteilt — unabhängig davon, wer im Haus dafür zuständig ist.","Zwischen Abteilungen kommt es bei Kundenanliegen häufig zu Reibungsverlusten oder Zuständigkeitsstreit.","Für die Verfügbarkeit von Kundeninformationen bei Übergaben gibt es ein gemeinsames System, das bekannt ist und tatsächlich angewendet wird."] }
+    "Alltag & Routinen": { items:[49,50,51,52], q:["Informationen werden proaktiv geteilt, statt zurückgehalten zu werden.","Kolleg:innen unterstützen sich gegenseitig auch über Teamgrenzen hinweg.","Wissen wird eher gehortet, um sich einen Vorteil zu verschaffen.","Es gibt ein Format für informellen, teamübergreifenden Austausch (z. B. Coffee-Roulette)."] },
+    "Ausnahmesituationen": { items:[53,54,55,56], q:["Bei Überlastung einzelner Kolleg:innen springt das Team unaufgefordert ein.","Übergaben (z. B. bei Urlaub, Wechsel) laufen strukturiert und vollständig ab.","Bei Konflikten zwischen Teams wird eher gegeneinander als miteinander gearbeitet.","Es gibt ein Onboarding-/Buddy-System für neue Mitarbeitende."] },
+    "Kunden & Markt": { items:[57,58,59,60], q:["Team- und Abteilungsgrenzen spielen bei der Kundenbetreuung keine Rolle – es zählt die gemeinsame Lösung.","Informationen zu Kunden werden zwischen Vertrieb, Service und anderen Bereichen durchgängig geteilt.","Zwischen Abteilungen kommt es bei Kundenanliegen häufig zu Reibungsverlusten oder Zuständigkeitsstreit.","Es gibt ein gemeinsames System (z. B. CRM-Pflichtfeld), das die Übergabe von Kundeninformationen sicherstellt."] }
   }
 };
 const WERTE = Object.keys(DATA);
@@ -245,59 +222,45 @@ let stage = 'intro'; // intro -> survey -> results -> done
 let actionTexts = {}; // keyed by "Wert||Feld"
 let gapCells = [];
 let strengthCells = [];
-let nbAnteil = 0;
-let nichtAuswertbareZellen = [];
 
 function cellOf(w, f){ return DATA[w][f]; }
 
-const VERANKERUNG_LABELS = ["nicht vorhanden","kaum bekannt","selten angewendet","regelmäßig angewendet","konsequent angewendet"];
-
-function scaleRow(itemNum, value, isRitual){
+function scaleRow(itemNum, value){
   let html = `<div class="scale-row" data-item="${itemNum}">`;
   for(let v=1; v<=5; v++){
     html += `<div class="scale-btn ${value===v?'sel':''}" data-v="${v}">${v}</div>`;
   }
-  html += `<div class="scale-btn ${value==='nb'?'sel':''}" data-v="nb" style="flex:0 0 auto; padding:9px 10px; font-family:'Barlow Condensed',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.03em;">n.b.</div>`;
-  html += `</div>`;
-  if(isRitual){
-    html += `<div class="scale-caption"><span>1 · ${VERANKERUNG_LABELS[0]}</span><span>5 · ${VERANKERUNG_LABELS[4]}</span></div>`;
-  } else {
-    html += `<div class="scale-caption"><span>1 · fast nie</span><span>5 · fast immer</span></div>`;
-  }
+  html += `</div><div class="scale-caption"><span>1 · fast nie</span><span>5 · fast immer</span></div>`;
   return html;
 }
 
 const AUSNAHME_FELD = "Ausnahmesituationen";
-const AUSNAHME_HINWEIS = "Urteile in diesem Feld beruhen eher auf einzelnen erinnerten Vorfällen als auf beobachtbarer Häufigkeit — als zusätzlicher Diagnosehinweis zu lesen, nicht als härtere Kennzahl.";
+const AUSNAHME_HINWEIS = "Bewertung basiert auf einzelnen erinnerten Vorfällen, nicht auf beobachtbarer Häufigkeit — als Diagnosehinweis zu lesen, nicht als harte Kennzahl.";
 
 function computeCellAmpel(q1, q2, q3raw, feld){
-  // "nicht beurteilbar" (Wert 'nb') fließt nicht numerisch in den Mittelwert ein.
-  const raw = [q1, q2, q3raw];
-  const validIdx = raw.map((v,i) => v !== 'nb' && v !== undefined ? i : -1).filter(i => i >= 0);
-
-  if(validIdx.length < 2){
-    return { avg:null, ampel:'neutral', label:'Nicht auswertbar', notEvaluable:true, kritischerHinweis:false };
-  }
-
-  const values = validIdx.map(i => i === 2 ? (6 - raw[2]) : raw[i]); // Reverse-Item (Index 2) invertieren
-  const avg = values.reduce((a,b)=>a+b,0) / values.length;
-  const spread = values.length > 1 ? Math.max(...values) - Math.min(...values) : 0;
+  const invQ3 = 6 - q3raw;
+  const values = [q1, q2, invQ3];
+  const avg = values.reduce((a,b)=>a+b,0) / 3;
+  const spread = Math.max(...values) - Math.min(...values);
   // TODO (vorläufig): Schwellenwert für "hohe Streuung" ist NICHT final validiert.
   // Variance-/Konsistenzregel-Formel für den BAM-Score ist laut Methodik-Stand
   // noch offen — spread >= 2 ist ein Platzhalter, kein festgelegter Wert.
   const hoheStreuung = spread >= 2; // PROVISORISCH
 
-  // Einheitliche Ampellogik für ALLE Felder (seit v3 / finaler Prüf-Loop — ersetzt die
-  // frühere zweistufige Sonderregel für Ausnahmesituationen). Ausnahmesituationen
-  // erhalten stattdessen zusätzlich ein Warnsignal unter 3,5, siehe AUSNAHME_HINWEIS.
+  // Sonderregel für "Ausnahmesituationen": seltene Ereignisse, Urteile beruhen eher auf
+  // Einzelerinnerungen als auf einem echten Alltagsmuster. Daher keine dreistufige Ampel,
+  // sondern eine bewusst gröbere, zweistufige Einordnung (siehe Handbuch Kap. 6.2).
+  if(feld === AUSNAHME_FELD){
+    if(avg >= 3.5){ return { avg, ampel:'neutral', label:'Unauffällig', special:true }; }
+    return { avg, ampel:'neutral-dark', label:'Auffällig', special:true };
+  }
+
   let ampel, label;
   if(avg >= 4.0 && !hoheStreuung){ ampel='green'; label='Match'; }
   else if(avg >= 4.0 && hoheStreuung){ ampel='amber'; label='Inkonsistent'; }
   else if(avg >= 2.5){ ampel='amber'; label='Gap'; }
   else { ampel='red'; label='Mismatch'; }
-
-  const kritischerHinweis = (feld === AUSNAHME_FELD) && (avg < 3.5);
-  return { avg, ampel, label, notEvaluable:false, kritischerHinweis };
+  return { avg, ampel, label, special:false };
 }
 
 function render(){
@@ -340,28 +303,22 @@ function renderSurveyPage(){
         <input type="text" id="teamInput" placeholder="z. B. Vertrieb, Produktion..." value="${team}">
       </div>
       <div style="margin-top:16px; font-size:12.5px; line-height:1.55; color:#444; background:#FAF8F2; padding:12px 14px; border-left:4px solid var(--teal);">
-        Denk bei deiner Bewertung möglichst an deine Erfahrungen aus den <b>vergangenen 12 Monaten</b>. Beantworte die folgenden Fragen aus deiner eigenen Erfahrung heraus – nicht dein eigenes Verhalten, sondern das, was du bei anderen erlebst. Der genaue Bezug (eigenes Team, direkte Führung oder Kundenkontakt) steht jeweils zu Beginn eines Themenblocks.
+        Beantworte die folgenden Fragen aus deiner eigenen Erfahrung — bezogen auf das Verhalten, das ihr als Gruppe im Arbeitsalltag zeigt, unabhängig von Position oder Rolle. Diese Befragung bewertet keine einzelnen Personen — sie schaut auf das Gesamtbild aus Wert und Verhalten in eurem Umfeld.
       </div>`;
   }
 
-  const BEZUG_HINWEIS = {
-    "Alltag & Routinen": "Bezug: dein eigenes Team und deine direkte Führungskraft.",
-    "Ausnahmesituationen": "Bezug: dein eigenes Team und deine direkte Führungsebene – auch wenn eine Entscheidung höher fällt, zählt, wie sie bei euch ankommt.",
-    "Kunden & Markt": "Bezug: dein Bereich im Zusammenspiel mit Kunden bzw. externen Kontakten – nicht das gesamte Unternehmen."
-  };
-
   FELDER.forEach(f => {
     const cell = cellOf(wert, f);
-    fieldsHtml += `<div class="field-group"><div class="field-group-title">${f}</div><div style="font-size:11px; color:#777; margin:-8px 0 12px; font-style:italic;">${BEZUG_HINWEIS[f]}</div>`;
+    fieldsHtml += `<div class="field-group"><div class="field-group-title">${f}</div>`;
     cell.q.forEach((qtext, i) => {
       const itemNum = cell.items[i];
       const isRev = i === 2;
       const isRitual = i === 3;
       fieldsHtml += `
         <div class="qrow">
-          <div class="qtag">Frage ${itemNum}${isRev?'<span class="rev">R</span>':''}${isRitual?' · Verankerung':''}</div>
+          <div class="qtag">Frage ${itemNum}${isRev?'<span class="rev">R</span>':''}${isRitual?' · Ritual/Instrument':''}</div>
           <div class="qtext">${qtext}</div>
-          ${scaleRow(itemNum, answers[itemNum], isRitual)}
+          ${scaleRow(itemNum, answers[itemNum])}
         </div>`;
     });
     fieldsHtml += `</div>`;
@@ -388,8 +345,7 @@ function renderSurveyPage(){
     btn.onclick = () => {
       const row = btn.closest('.scale-row');
       const item = parseInt(row.dataset.item);
-      const v = btn.dataset.v;
-      answers[item] = v === 'nb' ? 'nb' : parseInt(v);
+      answers[item] = parseInt(btn.dataset.v);
       render();
     };
   });
@@ -416,26 +372,17 @@ function prepareResults(){
       const [n1,n2,n3] = cell.items;
       const q1 = answers[n1], q2 = answers[n2], q3raw = answers[n3];
       const r = computeCellAmpel(q1, q2, q3raw, f);
-      const invQ3 = q3raw === 'nb' ? null : 6 - q3raw;
       all.push({
         wert:w, feld:f, ...r,
-        q1, q2, q3raw, invQ3,
+        q1, q2, q3raw, invQ3: 6 - q3raw,
         text1: cell.q[0], text2: cell.q[1], text3: cell.q[2]
       });
     });
   });
-  const evaluable = all.filter(c => !c.notEvaluable);
-  const nichtAuswertbar = all.filter(c => c.notEvaluable);
-  evaluable.sort((a,b) => a.avg - b.avg);
-  gapCells = evaluable.slice(0, 3);
+  all.sort((a,b) => a.avg - b.avg);
+  gapCells = all.slice(0, 3);
   gapCells.forEach(c => { const key = c.wert+'||'+c.feld; if(!(key in actionTexts)) actionTexts[key] = ''; });
-  strengthCells = evaluable.slice(-3).reverse();
-
-  // "nicht beurteilbar"-Anteil über den gesamten Fragebogen (Fragetyp 1-3, 45 Items)
-  const alleVerhaltensAntworten = WERTE.flatMap(w => FELDER.flatMap(f => cellOf(w,f).items.slice(0,3).map(n => answers[n])));
-  const nbAnzahl = alleVerhaltensAntworten.filter(v => v === 'nb').length;
-  nbAnteil = alleVerhaltensAntworten.length ? nbAnzahl / alleVerhaltensAntworten.length : 0;
-  nichtAuswertbareZellen = nichtAuswertbar;
+  strengthCells = all.slice(-3).reverse();
 }
 
 function extremeKeys(c, mode){
@@ -443,8 +390,7 @@ function extremeKeys(c, mode){
     { key:'q1', value:c.q1 },
     { key:'q2', value:c.q2 },
     { key:'invq3', value:c.invQ3 }
-  ].filter(p => p.value !== 'nb' && p.value !== null);
-  if(parts.length === 0) return [];
+  ];
   const target = mode === 'max' ? Math.max(...parts.map(p => p.value)) : Math.min(...parts.map(p => p.value));
   return parts.filter(p => p.value === target).map(p => p.key);
 }
@@ -455,15 +401,14 @@ function renderBreakdown(c, mode='min'){
   const rows = [
     { key:'q1', val:c.q1, text:c.text1, revNote:null },
     { key:'q2', val:c.q2, text:c.text2, revNote:null },
-    { key:'invq3', val:c.invQ3, text:c.text3, revNote: c.q3raw === 'nb' ? null : `Ursprüngliche Antwort: ${c.q3raw}/5 — hier umgekehrt betrachtet, weil die Frage gegenteilig formuliert war.` }
+    { key:'invq3', val:c.invQ3, text:c.text3, revNote:`Ursprüngliche Antwort: ${c.q3raw}/5 — hier umgekehrt betrachtet, weil die Frage gegenteilig formuliert war.` }
   ].map(row => {
     const isHighlight = keys.includes(row.key);
-    const isNb = row.val === 'nb' || row.val === null;
     return `
       <div class="bd-row ${isHighlight?highlightClass:''}">
         <div class="bd-top">
           <span class="bd-qtext-main">„${row.text}"</span>
-          <span class="bd-val">${isNb ? 'n.b.' : row.val+'/5'}</span>
+          <span class="bd-val">${row.val}/5</span>
         </div>
         ${row.revNote ? `<div class="bd-rawnote">${row.revNote}</div>` : ''}
       </div>`;
@@ -489,11 +434,11 @@ function renderFullAnswersBlock(){
   const sections = WERTE.map(w => {
     const fields = FELDER.map(f => {
       const cell = cellOf(w, f);
-      const labels = ['Verhaltens-Frequenz', 'Ergänzendes Verhaltens-Item', 'Reverse-Item (Rohwert)', 'Organisatorische Verankerung'];
+      const labels = ['Verhaltens-Frequenz', 'Ergänzendes Verhaltens-Item', 'Reverse-Item (Rohwert)', 'Ritual/Instrument'];
       const rows = cell.items.map((itemNum, i) => `
         <div class="fa-row">
           <span class="fa-qtext">„${cell.q[i]}"</span>
-          <span class="fa-val">${answers[itemNum] === 'nb' ? 'n.b.' : (answers[itemNum] !== undefined ? answers[itemNum]+'/5' : '–/5')}</span>
+          <span class="fa-val">${answers[itemNum] !== undefined ? answers[itemNum] : '–'}/5</span>
         </div>`).join('');
       const note = f === AUSNAHME_FELD ? `<div class="bd-rawnote" style="margin-bottom:6px;">${AUSNAHME_HINWEIS}</div>` : '';
       return `<div class="fa-field"><div class="fa-field-title">${f}</div>${note}${rows}</div>`;
@@ -528,9 +473,7 @@ function renderResults(){
       const cell = cellOf(w, f);
       const [n1,n2,n3] = cell.items;
       const r = computeCellAmpel(answers[n1], answers[n2], answers[n3], f);
-      const sub = r.notEvaluable ? '(zu wenig Antworten)' : `Ø ${r.avg.toFixed(2)}`;
-      const warn = r.kritischerHinweis ? ' ⚠' : '';
-      return `<td class="cell-ampel bg-${r.ampel}"><div class="cell-inner">${r.label}${warn}<div class="sub">${sub}</div></div></td>`;
+      return `<td class="cell-ampel bg-${r.ampel}"><div class="cell-inner">${r.label}<div class="sub">Ø ${r.avg.toFixed(2)}</div></div></td>`;
     }).join('');
     return `<tr><td class="wert-lbl">${w}</td>${cells}</tr>`;
   }).join('');
@@ -542,7 +485,7 @@ function renderResults(){
         <div class="gap-title">${c.wert}</div>
         <div class="gap-sub">${c.feld}</div>
         <span class="gap-badge ${ampelBadgeClass(c.ampel)}">${c.label} · Ø ${c.avg.toFixed(2)}</span>
-        ${c.kritischerHinweis ? `<div class="special-note">⚠ ${AUSNAHME_HINWEIS}</div>` : ''}
+        ${c.special ? `<div class="special-note">${AUSNAHME_HINWEIS}</div>` : ''}
       </div>`;
   }).join('');
 
@@ -554,7 +497,7 @@ function renderResults(){
         <div class="gap-title">${c.wert}</div>
         <div class="gap-sub">${c.feld}</div>
         <span class="gap-badge ${ampelBadgeClass(c.ampel)}">${c.label} · Ø ${c.avg.toFixed(2)}</span>
-        ${c.kritischerHinweis ? `<div class="special-note">⚠ ${AUSNAHME_HINWEIS} Bevor du hier eine Maßnahme festlegst, lohnt sich ein kurzer Realitätscheck: Betrifft das einen echten wiederkehrenden Fall oder einen einzelnen, besonders präsenten Vorfall?</div>` : ''}
+        ${c.special ? `<div class="special-note">${AUSNAHME_HINWEIS} Bevor du hier eine Maßnahme festlegst, lohnt sich ein kurzer Realitätscheck: Betrifft das einen echten wiederkehrenden Fall oder einen einzelnen, besonders präsenten Vorfall?</div>` : ''}
         ${renderBreakdown(c, 'min')}
         <div class="gap-prompt">
           Hier sehe ich den größten Handlungsbedarf.
@@ -574,12 +517,10 @@ function renderResults(){
 
       <div class="matrix-caption">Deine Matrix</div>
       <table class="dash-matrix">
-        <thead><tr><th>Wert</th><th>Alltag &amp; Routinen</th><th>Ausnahmesituationen</th><th>Kunden &amp; Markt</th></tr></thead>
+        <thead><tr><th>Wert</th><th>Alltag &amp; Routinen</th><th class="th-special">Ausnahmesituationen*</th><th>Kunden &amp; Markt</th></tr></thead>
         <tbody>${matrixRows}</tbody>
       </table>
-      <div class="matrix-footnote">⚠ = kritischer Hinweis in Ausnahmesituationen (Ø unter 3,5): ${AUSNAHME_HINWEIS}</div>
-      <div class="matrix-footnote">"Zu wenig Antworten" erscheint, wenn weniger als 2 von 3 Verhaltensitems einer Zelle beantwortet wurden.</div>
-      ${nbAnteil > 0.3 ? `<div class="banner err" style="margin-top:8px;">Eingeschränkte Aussagekraft: ${Math.round(nbAnteil*100)}% deiner Antworten waren „nicht beurteilbar".</div>` : ''}
+      <div class="matrix-footnote">* ${AUSNAHME_HINWEIS} Deshalb zeigt diese Spalte „Unauffällig"/„Auffällig" statt der dreistufigen Ampel.</div>
 
       <div class="matrix-caption">Hier seid ihr als Team bereits stark</div>
       <div class="intro" style="max-width:100%; margin-top:0;">Die drei Zellen mit dem geringsten Abstand zwischen Anspruch und gelebtem Verhalten.</div>
@@ -613,7 +554,7 @@ function buildPayload(){
     wert: c.wert, feld: c.feld, ampel: c.ampel, avg: c.avg,
     action: actionTexts[c.wert+'||'+c.feld] || ''
   }));
-  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.5', answers, team: team || null, ts: Date.now(), actions };
+  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.3', answers, team: team || null, ts: Date.now(), actions };
 }
 
 // Diese Seite läuft rein im Browser (z. B. als statische GitHub-Pages-Seite) und hat keinen
