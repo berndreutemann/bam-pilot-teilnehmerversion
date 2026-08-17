@@ -1,39 +1,15 @@
 <!DOCTYPE html>
-<!--
-  BAM — Behavior Alignment Matrix · Teilnehmerversion
-  MindnessConsult · Version 1.3
-
-  Änderungen zu 1.2: Terminologie vereinheitlicht — "Culture Audit" durch "BAM-Audit"
-  ersetzt (Title-Tag, H1), konsistent zu allen anderen BAM-Dokumenten. Die vorherige
-  stage-abhängige Titel-Umschaltung (Culture Audit vs. "BAM (Behavior Alignment Matrix)")
-  entfällt dadurch — der Titel ist jetzt durchgängig "BAM-Audit".
-
-  Änderungen zu 1.1 (Vorbereitung auf Veröffentlichung):
-  - Sonderregel für das Feld "Ausnahmesituationen" ergänzt: zweistufige Bewertung
-    (Unauffällig/Auffällig) statt der regulären dreistufigen Ampel, inkl. Pflichthinweis
-    in Matrix, Potenzialpunkt-/Stärke-Karten und Druckansicht (siehe Handbuch Kap. 6.2).
-  - Abhängigkeit von window.storage entfernt: diese API existiert nur innerhalb der
-    Claude-Artifact-Laufzeitumgebung und funktioniert nicht auf einer statischen
-    GitHub-Pages-Seite. Ersetzt durch clientseitigen Datei-Download (kein Server nötig).
-  - Datenschutz-/Ablaufhinweis ergänzt: Verarbeitung läuft vollständig im Browser,
-    Weitergabe der Ergebnisdatei erfolgt manuell durch die teilnehmende Person.
-  - Hinweis auf "Pilot-Prototyp, nicht für externe Weitergabe" entfernt (nicht mehr zutreffend).
-
-  Diese Datei ist eine eigenständige HTML-Seite ohne Build-Schritt — sie kann direkt
-  aus einem GitHub-Repository per GitHub Pages bereitgestellt werden.
--->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BAM-Audit — Teilnehmerversion — MindnessConsult</title>
+<title>BAM Pilot-Erhebung — Teilnehmerversion — MindnessConsult</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#F4F1E9; --navy:#111F3D; --teal:#146873; --red:#7A1620;
     --green:#2E7D46; --amber:#C08A16; --ink:#1A1A1A; --hair:#C9C3B4; --off-dim:#D8D2C0;
-    --neutral:#8A8677; --neutral-dark:#4A473C;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{ background:#DCD8CC; font-family:'Inter',sans-serif; display:flex; justify-content:center; padding:32px 12px; color:var(--ink); }
@@ -92,9 +68,6 @@
   .cell-inner{ padding:10px 6px; color:#fff; font-weight:700; font-size:12px; }
   .cell-inner .sub{ font-size:9.5px; font-weight:500; opacity:0.9; margin-top:2px; }
   .bg-green{ background:var(--green); } .bg-amber{ background:var(--amber); } .bg-red{ background:var(--red); }
-  .bg-neutral{ background:var(--neutral); } .bg-neutral-dark{ background:var(--neutral-dark); }
-  th.th-special{ position:relative; }
-  .matrix-footnote{ font-size:10.5px; color:#666; margin-top:8px; line-height:1.5; }
 
   /* Potenzialpunkte / Maßnahmen */
   .gap-card{ background:#fff; border-left:5px solid var(--red); padding:18px 20px; margin-top:16px; }
@@ -105,9 +78,6 @@
   .gap-sub{ font-size:12px; color:#555; margin-top:3px; }
   .gap-badge{ display:inline-block; font-size:10px; font-weight:700; color:#fff; padding:2px 8px; border-radius:3px; margin-top:6px; }
   .gap-badge.red{ background:var(--red); } .gap-badge.amber{ background:var(--amber); } .gap-badge.green{ background:var(--green); }
-  .gap-badge.neutral{ background:var(--neutral); } .gap-badge.neutral-dark{ background:var(--neutral-dark); }
-  .gap-card.neutral{ border-left-color:var(--neutral); } .gap-card.neutral-dark{ border-left-color:var(--neutral-dark); }
-  .special-note{ font-size:11.5px; color:#555; background:#F2F0E8; border-left:3px solid var(--neutral); padding:8px 10px; margin-top:10px; line-height:1.5; }
 
   .strength-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:6px; }
   @media (max-width:700px){ .strength-grid{ grid-template-columns:1fr; } }
@@ -169,8 +139,8 @@
 <body>
 <div class="page">
 
-  <div class="eyebrow">BAM · DEEP DIVE — TEILNEHMERVERSION</div>
-  <h1 id="pageTitle">BAM-Audit</h1>
+  <div class="eyebrow">BAM · PILOT-ERHEBUNG — TEILNEHMERVERSION</div>
+  <h1>Culture Audit</h1>
   <div class="intro">
     Nach dem Fragebogen siehst du hier <b>dein eigenes</b> Ergebnis — nicht die Auswertung des ganzen Teams — und legst direkt fest, was du in deinem eigenen Verantwortungsbereich verändern willst.
   </div>
@@ -178,8 +148,8 @@
   <div id="surveyView"></div>
 
   <div class="footnote">
-    Diese Ansicht zeigt ausschließlich deine eigenen Antworten. Eine teamweite, aggregierte Auswertung über alle Teilnehmenden entsteht erst, wenn deine/dein Berater:in die heruntergeladenen Einzelergebnisse zusammenführt — diese Seite selbst führt keine Daten zusammen und sendet nichts an einen Server.<br>
-    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.3 · Fragenkatalog: 5 Kernwerte, 60 Basisfragen
+    Diese Ansicht zeigt ausschließlich deine eigenen Antworten. Eine teamweite Auswertung (aggregiert über alle Teilnehmenden) existiert separat als Berater-Dashboard und ist hier nicht enthalten.<br>
+    MindnessConsult · BAM — Behavior Alignment Matrix · Pilot-Prototyp, nicht für externe Weitergabe
   </div>
 
 </div>
@@ -234,30 +204,18 @@ function scaleRow(itemNum, value){
   return html;
 }
 
-const AUSNAHME_FELD = "Ausnahmesituationen";
-const AUSNAHME_HINWEIS = "Bewertung basiert auf einzelnen erinnerten Vorfällen, nicht auf beobachtbarer Häufigkeit — als Diagnosehinweis zu lesen, nicht als harte Kennzahl.";
-
-function computeCellAmpel(q1, q2, q3raw, feld){
+function computeCellAmpel(q1, q2, q3raw){
   const invQ3 = 6 - q3raw;
   const values = [q1, q2, invQ3];
   const avg = values.reduce((a,b)=>a+b,0) / 3;
   const spread = Math.max(...values) - Math.min(...values);
   const hoheStreuung = spread >= 2;
-
-  // Sonderregel für "Ausnahmesituationen": seltene Ereignisse, Urteile beruhen eher auf
-  // Einzelerinnerungen als auf einem echten Alltagsmuster. Daher keine dreistufige Ampel,
-  // sondern eine bewusst gröbere, zweistufige Einordnung (siehe Handbuch Kap. 6.2).
-  if(feld === AUSNAHME_FELD){
-    if(avg >= 3.5){ return { avg, ampel:'neutral', label:'Unauffällig', special:true }; }
-    return { avg, ampel:'neutral-dark', label:'Auffällig', special:true };
-  }
-
   let ampel, label;
   if(avg >= 4.0 && !hoheStreuung){ ampel='green'; label='Match'; }
   else if(avg >= 4.0 && hoheStreuung){ ampel='amber'; label='Inkonsistent'; }
   else if(avg >= 2.5){ ampel='amber'; label='Gap'; }
   else { ampel='red'; label='Mismatch'; }
-  return { avg, ampel, label, special:false };
+  return { avg, ampel, label };
 }
 
 function render(){
@@ -277,7 +235,6 @@ function renderIntro(){
         <p style="margin-top:10px;">Du beantwortest 60 Aussagen zu fünf Werten — bezogen darauf, wie du das Verhalten tatsächlich erlebst, nicht wie es idealerweise sein sollte. Das dauert 10–15 Minuten.</p>
         <p style="margin-top:10px;"><b>Danach siehst du dein eigenes Ergebnis</b> — welche Bereiche bei dir am meisten auseinanderklaffen — und hältst direkt fest, was du selbst dagegen tun willst. Das bleibt konkret und in deinem eigenen Handlungsbereich, keine abstrakten Vorsätze.</p>
         <p style="margin-top:10px;">Es gibt keine richtigen oder falschen Antworten.</p>
-        <p style="margin-top:10px;"><b>Zum Datenschutz:</b> Diese Seite läuft vollständig in deinem Browser — es gibt keinen Server im Hintergrund, an den deine Antworten automatisch gesendet werden. Am Ende lädst du dein Ergebnis selbst als Datei herunter und gibst sie wie mit deinem Team/deiner Beratung vereinbart weiter.</p>
       </div>
       <div class="nav-row" style="justify-content:flex-end;">
         <div class="nav-btn primary" id="btnStart">Los geht's</div>
@@ -368,7 +325,7 @@ function prepareResults(){
       const cell = cellOf(w, f);
       const [n1,n2,n3] = cell.items;
       const q1 = answers[n1], q2 = answers[n2], q3raw = answers[n3];
-      const r = computeCellAmpel(q1, q2, q3raw, f);
+      const r = computeCellAmpel(q1, q2, q3raw);
       all.push({
         wert:w, feld:f, ...r,
         q1, q2, q3raw, invQ3: 6 - q3raw,
@@ -419,11 +376,9 @@ function renderBreakdown(c, mode='min'){
 }
 
 function ampelBadgeClass(ampel){
-  if(ampel === 'neutral' || ampel === 'neutral-dark') return ampel;
   return ampel === 'red' ? 'red' : (ampel === 'amber' ? 'amber' : 'green');
 }
 function ampelCardClass(ampel){
-  if(ampel === 'neutral' || ampel === 'neutral-dark') return ampel;
   return ampel === 'green' ? 'green' : (ampel === 'amber' ? 'amber' : '');
 }
 
@@ -437,8 +392,7 @@ function renderFullAnswersBlock(){
           <span class="fa-qtext">„${cell.q[i]}"</span>
           <span class="fa-val">${answers[itemNum] !== undefined ? answers[itemNum] : '–'}/5</span>
         </div>`).join('');
-      const note = f === AUSNAHME_FELD ? `<div class="bd-rawnote" style="margin-bottom:6px;">${AUSNAHME_HINWEIS}</div>` : '';
-      return `<div class="fa-field"><div class="fa-field-title">${f}</div>${note}${rows}</div>`;
+      return `<div class="fa-field"><div class="fa-field-title">${f}</div>${rows}</div>`;
     }).join('');
     return `<div class="fa-wert"><div class="fa-wert-title">${w}</div>${fields}</div>`;
   }).join('');
@@ -469,7 +423,7 @@ function renderResults(){
     const cells = FELDER.map(f => {
       const cell = cellOf(w, f);
       const [n1,n2,n3] = cell.items;
-      const r = computeCellAmpel(answers[n1], answers[n2], answers[n3], f);
+      const r = computeCellAmpel(answers[n1], answers[n2], answers[n3]);
       return `<td class="cell-ampel bg-${r.ampel}"><div class="cell-inner">${r.label}<div class="sub">Ø ${r.avg.toFixed(2)}</div></div></td>`;
     }).join('');
     return `<tr><td class="wert-lbl">${w}</td>${cells}</tr>`;
@@ -482,7 +436,6 @@ function renderResults(){
         <div class="gap-title">${c.wert}</div>
         <div class="gap-sub">${c.feld}</div>
         <span class="gap-badge ${ampelBadgeClass(c.ampel)}">${c.label} · Ø ${c.avg.toFixed(2)}</span>
-        ${c.special ? `<div class="special-note">${AUSNAHME_HINWEIS}</div>` : ''}
       </div>`;
   }).join('');
 
@@ -494,7 +447,6 @@ function renderResults(){
         <div class="gap-title">${c.wert}</div>
         <div class="gap-sub">${c.feld}</div>
         <span class="gap-badge ${ampelBadgeClass(c.ampel)}">${c.label} · Ø ${c.avg.toFixed(2)}</span>
-        ${c.special ? `<div class="special-note">${AUSNAHME_HINWEIS} Bevor du hier eine Maßnahme festlegst, lohnt sich ein kurzer Realitätscheck: Betrifft das einen echten wiederkehrenden Fall oder einen einzelnen, besonders präsenten Vorfall?</div>` : ''}
         ${renderBreakdown(c, 'min')}
         <div class="gap-prompt">
           Hier sehe ich den größten Handlungsbedarf.
@@ -514,10 +466,9 @@ function renderResults(){
 
       <div class="matrix-caption">Deine Matrix</div>
       <table class="dash-matrix">
-        <thead><tr><th>Wert</th><th>Alltag &amp; Routinen</th><th class="th-special">Ausnahmesituationen*</th><th>Kunden &amp; Markt</th></tr></thead>
+        <thead><tr><th>Wert</th><th>Alltag &amp; Routinen</th><th>Ausnahmesituationen</th><th>Kunden &amp; Markt</th></tr></thead>
         <tbody>${matrixRows}</tbody>
       </table>
-      <div class="matrix-footnote">* ${AUSNAHME_HINWEIS} Deshalb zeigt diese Spalte „Unauffällig"/„Auffällig" statt der dreistufigen Ampel.</div>
 
       <div class="matrix-caption">Hier seid ihr als Team bereits stark</div>
       <div class="intro" style="max-width:100%; margin-top:0;">Die drei Zellen mit dem geringsten Abstand zwischen Anspruch und gelebtem Verhalten.</div>
@@ -532,7 +483,7 @@ function renderResults(){
       <div id="resultsBanner"></div>
       <div class="nav-row">
         <div class="nav-btn" id="btnPrint">Als PDF speichern / drucken</div>
-        <div class="nav-btn primary" id="btnSaveActions">Ergebnis abschließen &amp; als Datei herunterladen</div>
+        <div class="nav-btn primary" id="btnSaveActions">Maßnahmen speichern &amp; abschließen</div>
       </div>
     </div>`;
 
@@ -541,41 +492,42 @@ function renderResults(){
   });
 
   document.getElementById('btnPrint').onclick = () => { printResult(); };
-  document.getElementById('btnSaveActions').onclick = () => {
-    finishAndExport();
+  document.getElementById('btnSaveActions').onclick = async () => {
+    await submitAll();
   };
 }
 
-function buildPayload(){
+let lastSaveSucceeded = null; // null = nicht versucht, true/false = Ergebnis
+
+async function submitAll(){
+  const banner = document.getElementById('resultsBanner');
   const actions = gapCells.map(c => ({
     wert: c.wert, feld: c.feld, ampel: c.ampel, avg: c.avg,
     action: actionTexts[c.wert+'||'+c.feld] || ''
   }));
-  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.3', answers, team: team || null, ts: Date.now(), actions };
-}
 
-// Diese Seite läuft rein im Browser (z. B. als statische GitHub-Pages-Seite) und hat keinen
-// eigenen Server im Hintergrund. Antworten werden deshalb NICHT automatisch irgendwohin
-// übertragen — die teilnehmende Person lädt ihr Ergebnis selbst als Datei herunter und
-// gibt sie wie mit dem/der Berater:in vereinbart weiter (z. B. per E-Mail oder Upload).
-function finishAndExport(){
-  const banner = document.getElementById('resultsBanner');
+  const storageAvailable = typeof window.storage !== 'undefined' && window.storage !== null;
+
+  if(!storageAvailable){
+    // Showcase-/Standalone-Umgebung ohne Anthropic-Artifact-Speicher (z. B. GitHub Pages):
+    // keine dauerhafte Speicherung möglich — bewusst kein Fehler, nur ehrliche Kennzeichnung.
+    lastSaveSucceeded = false;
+    stage = 'done';
+    render();
+    return;
+  }
+
   try{
-    const payload = buildPayload();
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    const stamp = new Date(payload.ts).toISOString().slice(0,16).replace(/[:T]/g,'-');
-    a.href = url;
-    a.download = `bam-antwort_${stamp}.json`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
+    const id = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
+    const payload = { answers, team: team || null, ts: Date.now(), actions };
+    const result = await window.storage.set('responses:' + id, JSON.stringify(payload), true);
+    if(!result){ throw new Error('Speichern fehlgeschlagen'); }
+    lastSaveSucceeded = true;
     stage = 'done';
     render();
   } catch(err){
-    banner.innerHTML = `<div class="banner err">Fehler beim Erstellen der Ergebnisdatei: ${err.message || err}. Bitte erneut versuchen oder stattdessen "Als PDF speichern/drucken" nutzen.</div>`;
+    lastSaveSucceeded = false;
+    banner.innerHTML = `<div class="banner err">Fehler beim Speichern: ${err.message || err}. Bitte erneut versuchen — oder nutze „Als PDF speichern / drucken", um deine Ergebnisse trotzdem zu sichern.</div>`;
   }
 }
 
@@ -591,10 +543,14 @@ function renderDone(){
       </div>`;
   }).join('');
 
+  const saveNote = lastSaveSucceeded
+    ? `<p>Deine Antworten und deine Maßnahmen sind gespeichert. Das hast du dir für die kommenden 6 Wochen vorgenommen:</p>`
+    : `<p>Diese Version läuft ohne dauerhafte Speicherung (Showcase-Modus) — deine Antworten wurden <b>nicht</b> auf einem Server abgelegt. Nutze „Als PDF speichern / drucken", um deine Ergebnisse zu sichern. Das hast du dir für die kommenden 6 Wochen vorgenommen:</p>`;
+
   view.innerHTML = `
     <div class="card thanks">
       <h2>Danke!</h2>
-      <p>Deine Antworten wurden als Datei auf deinem Gerät heruntergeladen (Ordner „Downloads"). Bitte gib diese Datei wie mit deinem/deiner Berater:in vereinbart weiter — z. B. per E-Mail oder Upload. Das hast du dir für die kommenden 6 Wochen vorgenommen:</p>
+      ${saveNote}
       ${recap}
 
       <div class="checkin-box">
@@ -613,7 +569,7 @@ function renderDone(){
     </div>`;
   document.getElementById('btnPrintDone').onclick = () => { window.print(); };
   document.getElementById('btnAnother').onclick = () => {
-    answers = {}; team=''; currentWertIdx=0; actionTexts={}; gapCells=[]; stage='intro'; render();
+    answers = {}; team=''; currentWertIdx=0; actionTexts={}; gapCells=[]; stage='intro'; lastSaveSucceeded=null; render();
   };
 }
 
