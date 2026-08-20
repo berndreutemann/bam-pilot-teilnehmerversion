@@ -1,7 +1,90 @@
 <!DOCTYPE html>
 <!--
   BAM — Behavior Alignment Matrix · Teilnehmerversion
-  MindnessConsult · Version 1.13
+  MindnessConsult · Version 1.17
+
+  Änderungen zu 1.17 (Fragetyp-4-Erläuterung feldübergreifend):
+  - Struktur-Erläuterung bei Fragetyp 4 (Strukturlücke/Umsetzungslücke/verankert) erscheint
+    jetzt bei JEDER Zelle, unabhängig vom Feld — vorher nur bei Ausnahmesituationen.
+  - Dabei Fehler behoben: Der Text zur Kategorie "verankert" unterstellte bisher implizit
+    einen Widerspruch zum Verhalten ("wird unter Druck aber nicht gelebt") — das war nur
+    für die Kombination Warnsignal + hohe Verankerung in Ausnahmesituationen gedacht und
+    wäre bei einer normal guten Zelle (z. B. einer Stärke) sachlich falsch gewesen. Alle
+    drei Kategorietexte jetzt feldneutral und unabhängig vom Warnsignal-Status formuliert.
+
+  Änderungen zu 1.16 (Übersichtlichkeit Ergebnisbericht, Zusatzinfos auf Bedarf):
+  - Ausnahmesituationen-Pflichthinweis (AUSNAHME_HINWEIS) bei Warnsignal jetzt als
+    Dropdown ("⚠ Hinweis zu diesem Feld anzeigen"), standardmäßig eingeklappt — bei
+    Potenzialpunkten UND Stärken gleichermaßen. ANGEPASSTE GESETZT-REGEL (Auswertungslogik
+    Abschnitt 6, bisher: Hinweis "beizubehalten"/durchgehend sichtbar): Der Hinweis bleibt
+    verpflichtender Bestandteil des Berichts, steht aber ab dieser Version eingeklappt
+    hinter einem Ausklapp-Link statt im Fließtext — bewusste Abweichung zugunsten der
+    Übersichtlichkeit. Im Druck wird er automatisch aufgeklappt (wie die
+    Stärken-Details), damit er im Papier-/PDF-Report nie fehlt. Diese Regeländerung noch
+    im Changelog der Arbeitstabelle und im Handbuch v1.7 nachzutragen.
+  - Fragetyp-2-Hinweis (FT2_HINWEIS) wandert vom special-note-Block direkt an die
+    Fragetyp-2-Zeile in der Einzelfragen-Aufschlüsselung (renderBreakdown) — erscheint
+    weiterhin nur, wenn Fragetyp 2 zu den schwächsten Items der Zelle gehört (mode='min'),
+    analog zur Reverse-Item-Zusatzerklärung, die auch nur an ihrer eigenen Zeile steht.
+    Nicht bei aufgeklappten Stärken (mode='max') — dort ergibt der Hinweis inhaltlich
+    keinen Sinn.
+  - Fragetyp-4-Methodik-Satz ("Fragetyp 4 — Organisatorische Verankerung, fließt nicht in
+    den Mittelwert ein.") ersatzlos entfernt — reiner Jargon ohne Mehrwert für
+    Teilnehmende. Die Struktur-Zeile (Strukturlücke/Umsetzungslücke/verankert +
+    Erklärsatz) erscheint jetzt bei jeder Ausnahmesituationen-Zelle mit beantwortetem
+    Fragetyp-4-Item, unabhängig vom Warnsignal-Status (vorher nur bei kritischerHinweis;
+    seit 1.17 nicht mehr auf Ausnahmesituationen beschränkt, siehe oben).
+  - Potenzialpunkt-Aufschlüsselung bewusst weiterhin immer sichtbar (kein Dropdown) —
+    dort steht eine Handlungsentscheidung an, die die volle Datenbasis sofort braucht.
+
+  Änderungen zu 1.15 (Straffung Auswertungsseite):
+  - Stärken-Karten kompakt auf eine Zeile reduziert (Wert — Feld, Ampel-Badge). Neuer
+    Ausklapp-Link „Details anzeigen" bei allen 3 Stärken-Karten, öffnet dieselbe
+    Einzelfragen-Aufschlüsselung wie beim Potenzialpunkt (renderBreakdown, mode='max').
+    Im Druck werden die Details automatisch eingeblendet, der Toggle-Link ausgeblendet.
+  - renderBreakdown() um eine vierte Zeile für Fragetyp 4 (Organisatorische Verankerung)
+    erweitert. Bei einem Warnsignal in Ausnahmesituationen steht der Struktur-Kontext
+    (Strukturlücke/Umsetzungslücke/verankert + Erklärsatz) jetzt direkt unter der
+    zugehörigen Fragetyp-4-Frage in der Aufschlüsselung — vorher stand er als separater
+    Satz im special-note-Block oberhalb.
+  - special-note-Block bei Warnsignal (Ausnahmesituationen) gestrafft: Pflichtsatz
+    (AUSNAHME_HINWEIS) unverändert belassen, zweiter Satz von "Bevor du hier eine
+    Maßnahme festlegst, lohnt sich ein kurzer Realitätscheck: Betrifft das einen echten
+    wiederkehrenden Fall oder einen einzelnen, besonders präsenten Vorfall?" gekürzt auf
+    "Realitätscheck vor der Maßnahme: wiederkehrender Fall oder Einzelvorfall?".
+
+  Änderungen zu 1.14 (Sync auf Fragenkatalog v4 / Arbeitstabelle, Spalte G = Fragebogen A):
+  - Alle 60 Fragetexte auf die aktuelle Arbeitstabelle synchronisiert (5 Kernwerte,
+    Fragebogen A / Variante A, personenneutral). Umlaute im UI- und Itemtext bewusst
+    beibehalten (Entscheidung: die "ohne Umlaute"-Konvention der Arbeitstabelle gilt nur
+    für den Fragenkatalog/.md, nicht für die Teilnehmerversion).
+  - Fragetyp 2 (Führungskräfte-Konsistenz) einheitlich auf "— dies gilt ebenso für die
+    übergeordneten Ebenen" umgestellt, ersetzt das bisherige "unabhängig von Position
+    oder Hierarchieebene". Bewusste Entscheidung: bleibt absichtlich weit gefasst (alle
+    Ebenen, nicht nur die direkte Führungskraft), um nicht vorschnell einer einzelnen
+    Führungsebene die Verantwortung zuzuschreiben — das Signal ist als Ausgangspunkt für
+    die Ursachen-Analyse gedacht, nicht als scharfer Befund. Neuer Interpretationshinweis
+    (FT2_HINWEIS) erscheint bei Potenzialpunkten, deren schwächstes Item ein
+    Fragetyp-2-Item ist.
+  - Warnsignal "Ausnahmesituationen" von Variante A (reiner Zellmittelwert < 3,5) auf
+    Variante C umgestellt: Warnsignal nur, wenn zusätzlich mindestens 2 von 3
+    Verhaltensitems unter der Schwelle liegen. Verhindert, dass ein einzelner Ausreißer
+    allein das Signal trägt.
+  - Neu: Verankerungs-Kategorie (Fragetyp 4 derselben Zelle) wird bei einem Warnsignal
+    zusätzlich angezeigt (Strukturlücke / Umsetzungslücke / verankert) — unterscheidet
+    "Verhalten bricht ein, keine Regelung vorhanden" von "Regelung vorhanden, trägt aber
+    nicht unter Druck". Fragetyp-4-Itemtexte gekürzt auf reine Existenzabfrage (Reifegrad
+    kommt ausschließlich aus der Verankerungsskala, nicht mehr aus dem Itemtext selbst).
+  - Datenbasis: BAM_projektdaten_ArbeitstabelleV3_1.xlsx, Blatt "Fragenkatalog"
+    (Spalte G) und Blatt "Teilnehmerversion" (Werteauswahl: die 5 Kernwerte, unverändert).
+  - Itemnummerierung bewusst bei der bisherigen durchgehenden 1–60-Zählung belassen
+    (Annahme/Vereinfachung): Die Arbeitstabelle zählt neuerdings 1–12 pro Wert (auch bei
+    den Kernwerten), das ist aber eine Pool-interne Verwaltungsnummerierung. Für die
+    Teilnehmerversion mit fester Werteauswahl ist eine durchgehende Nummerierung
+    (Frage 1 … Frage 60) UX-seitig eindeutiger als 5× "Frage 1–12" und wurde daher
+    beibehalten. Bei Bedarf bitte gegenprüfen.
+
+  Änderungen zu 1.13 → siehe unten (unverändert erhalten).
 
   Änderungen zu 1.12 (Vereinfachungs-Loop, kritische Selbstprüfung "sind wir noch
   einfach/pragmatisch?"):
@@ -195,6 +278,14 @@
 
   .strength-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:6px; }
   @media (max-width:700px){ .strength-grid{ grid-template-columns:1fr; } }
+  .strength-compact{ display:flex; flex-direction:column; gap:6px; }
+  .strength-row{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+  .strength-label{ font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; font-size:10.5px; color:#888; }
+  .strength-title{ font-family:'Anton',sans-serif; font-size:14px; text-transform:uppercase; color:var(--navy); }
+  .strength-toggle{ font-size:11px; color:var(--teal); text-decoration:underline; cursor:pointer; width:fit-content; }
+  .strength-details{ margin-top:2px; }
+  .ausnahme-toggle{ font-size:11px; color:var(--red); text-decoration:underline; cursor:pointer; width:fit-content; margin-top:8px; }
+  .ausnahme-details{ margin-top:4px; }
   .gap-card.strength-slim{ padding:14px 16px; margin-top:0; }
   .gap-prompt{ font-size:12.5px; font-weight:600; color:var(--navy); margin-top:14px; line-height:1.5; }
   .gap-prompt .small{ font-weight:500; color:#666; font-size:11px; display:block; margin-top:2px; }
@@ -243,6 +334,10 @@
     .nav-row, .nav-btn, #resultsBanner, .gap-textarea{ display:none !important; }
     .print-only{ display:block !important; }
     .card, .gap-card, .strength-grid, table.dash-matrix, .fa-wert{ page-break-inside:avoid; }
+    .strength-details{ display:block !important; }
+    .strength-toggle{ display:none !important; }
+    .ausnahme-details{ display:block !important; }
+    .ausnahme-toggle{ display:none !important; }
     .breakdown{ page-break-inside:avoid; }
   }
 </style>
@@ -263,7 +358,7 @@
 
   <div class="footnote">
     Diese Ansicht zeigt ausschließlich deine eigenen Antworten. Eine teamweite, aggregierte Auswertung über alle Teilnehmenden entsteht erst, wenn deine/dein Berater:in die heruntergeladenen Einzelergebnisse zusammenführt — diese Seite selbst führt keine Daten zusammen und sendet nichts an einen Server.<br>
-    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.13 · Fragenkatalog: 5 Kernwerte, 60 Basisfragen
+    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.17 · Fragenkatalog v4: 5 Kernwerte, 60 Basisfragen
   </div>
 
 </div>
@@ -271,29 +366,29 @@
 <script>
 const DATA = {
   "Verlässlichkeit": {
-    "Alltag & Routinen": { items:[1,2,3,4], q:["Termine und Deadlines werden im Team zuverlässig eingehalten.","Termine und Zusagen werden unabhängig von Position oder Hierarchieebene eingehalten — auch auf höheren Ebenen.","Zusagen aus Meetings verlaufen oft im Sand, ohne dass jemand nachhakt.","Für offene Zusagen gibt es ein festes Format (z. B. Tracker, Board), das bekannt ist und tatsächlich genutzt wird."] },
-    "Ausnahmesituationen": { items:[5,6,7,8], q:["Bei absehbaren Verzögerungen wird von sich aus informiert, bevor jemand nachfragen muss.","Auch unter Zeitdruck oder bei unerwarteten Hindernissen werden Zusagen eingehalten oder aktiv neu verhandelt — unabhängig von Position oder Hierarchieebene.","Unter Zeitdruck werden Zuständigkeiten für offene Zusagen häufig unklar.","Für den Fall, dass eine Zusage nicht eingehalten werden kann, gibt es eine klare Regelung, wer informiert wird, die bekannt ist und tatsächlich angewendet wird."] },
-    "Kunden & Markt": { items:[9,10,11,12], q:["Lieferzeiten und Zusagen gegenüber Kunden werden realistisch kommuniziert.","Kunden werden aktiv informiert, sobald sich eine Zusage ändert — unabhängig davon, wer im Haus dafür verantwortlich ist.","Um Aufträge zu sichern, werden Kunden gelegentlich unrealistische Zusagen gemacht.","Für die Kommunikation bei Lieferverzug gibt es einen festen Ablauf, der bekannt ist und tatsächlich angewendet wird."] }
+    "Alltag & Routinen": { items:[1,2,3,4], q:["Termine und Fristen werden im Team zuverlässig eingehalten.","Termine und Zusagen werden eingehalten — dies gilt ebenso für die übergeordneten Ebenen.","Was in Meetings vereinbart wird, verfolgt hinterher niemand konsequent nach.","Offene Zusagen werden an einer Stelle festgehalten (z. B. Slack/Liste/Board), die alle kennen und nutzen."] },
+    "Ausnahmesituationen": { items:[5,6,7,8], q:["Wenn sich etwas verzögert, sagt man das von selbst — bevor jemand nachfragt.","Auch bei Zeitdruck oder Hindernissen werden Zusagen gehalten oder neu abgestimmt — dies gilt ebenso für die übergeordneten Ebenen.","Bei Zeitdruck bleibt oft offen, wer sich um eine Zusage kümmert.","Wenn eine Zusage platzt, ist klar geregelt, wer informiert wird — und daran hält sich auch jeder."] },
+    "Kunden & Markt": { items:[9,10,11,12], q:["Lieferzeiten und Zusagen gegenüber Kunden werden realistisch kommuniziert.","Kunden werden aktiv informiert, sobald sich eine Zusage ändert — dies gilt ebenso für die übergeordneten Ebenen.","Um einen Auftrag zu bekommen, wird Kunden auch mal etwas zugesagt, was nicht zu halten ist.","Bei Lieferverzug gibt es einen festen Ablauf für die Information der Kunden, den alle kennen und nutzen."] }
   },
   "Wertschätzung": {
-    "Alltag & Routinen": { items:[13,14,15,16], q:["In Meetings hört man einander aufmerksam und ohne Ablenkung zu.","Leistungen von Kolleg:innen werden im Alltag sichtbar anerkannt — unabhängig von Position oder Hierarchieebene.","Kritik wird eher vor der Gruppe geäußert als im vertraulichen Rahmen.","Für gegenseitige Anerkennung gibt es eine feste Gelegenheit, die bekannt ist und tatsächlich genutzt wird."] },
-    "Ausnahmesituationen": { items:[17,18,19,20], q:["Wer über längere Zeit stark belastet ist, bekommt das sichtbar anerkannt.","Bei Konflikten wird respektvoll miteinander umgegangen, auch wenn es hitzig wird — unabhängig von Position oder Hierarchieebene.","Bei Krankheit oder spürbarem Leistungseinbruch wird eher Druck aufgebaut als Rücksicht genommen.","Für den Abschied von Mitarbeitenden gibt es einen vereinbarten Ablauf, der bekannt ist und tatsächlich angewendet wird."] },
-    "Kunden & Markt": { items:[21,22,23,24], q:["Über Kunden wird intern respektvoll gesprochen, auch wenn sie schwierig sind.","Kundenfeedback wird respektvoll aufgenommen und nicht vorschnell abgewertet.","Nach schwierigen Kundengesprächen wird abfällig über Kunden gesprochen.","Für einen respektvollen Umgangston gegenüber und über Kunden gibt es eine klare Erwartung (z. B. im Leitfaden), die bekannt ist und tatsächlich gelebt wird."] }
+    "Alltag & Routinen": { items:[13,14,15,16], q:["In Meetings hören alle zu, ohne nebenbei etwas anderes zu tun.","Gute Arbeit von Kolleg:innen wird im Alltag angesprochen — dies gilt ebenso für die übergeordneten Ebenen.","Kritik wird vor der Gruppe geäußert und nicht im Vier-Augen-Gespräch.","Es gibt eine feste Gelegenheit, sich gegenseitig Anerkennung zu zeigen — und sie wird genutzt."] },
+    "Ausnahmesituationen": { items:[17,18,19,20], q:["Wenn jemand einspringt oder Mehrarbeit übernimmt, wird das anerkannt.","Bei Konflikten wird respektvoll miteinander umgegangen, auch wenn es hitzig wird — dies gilt ebenso für die übergeordneten Ebenen.","Wer aufgrund persönlicher Umstände vorübergehend weniger leisten kann, bekommt Druck zu spüren.","Für den Abschied von Mitarbeitenden gibt es einen vereinbarten, wertschätzend gestalteten Ablauf."] },
+    "Kunden & Markt": { items:[21,22,23,24], q:["Über Kunden wird intern respektvoll gesprochen, auch wenn sie schwierig sind.","Kritisches Kundenfeedback wird ernst genommen und sachlich aufgegriffen — dies gilt ebenso für die übergeordneten Ebenen.","Nach schwierigen Kundengesprächen wird schlecht über Kunden geredet.","Für einen respektvollen Umgangston gegenüber und über Kunden gibt es eine klare Erwartung (z. B. im Leitfaden)."] }
   },
   "Feedbackkultur & Transparenz": {
-    "Alltag & Routinen": { items:[25,26,27,28], q:["Kolleg:innen und Führungskräfte geben zeitnah Rückmeldung zu beobachtetem Verhalten und Arbeitsergebnissen, ohne dass explizit danach gefragt werden muss.","Entscheidungen, die die eigene Arbeit betreffen, werden verständlich begründet — unabhängig von Position oder Hierarchieebene.","Kritik wird eher hinter dem Rücken der Betroffenen geäußert als direkt.","Für Feedback gibt es feste, wiederkehrende Gelegenheiten (z. B. regelmäßige Rückblicke, Einzelgespräche), die bekannt sind und tatsächlich genutzt werden."] },
-    "Ausnahmesituationen": { items:[29,30,31,32], q:["Bei Fehlern wird offen nach Ursachen statt nach Schuldigen gesucht.","Eigene Fehler oder Unsicherheiten werden offen mitgeteilt — unabhängig von der Position.","Kritisches Feedback wird eher vermieden, um Konflikte zu umgehen oder aus Sorge vor Nachteilen.","Für kritisches Feedback an Vorgesetzte gibt es einen bekannten und vertraulich nutzbaren Weg."] },
-    "Kunden & Markt": { items:[33,34,35,36], q:["Kundenfeedback wird systematisch erfasst und intern geteilt.","Auch negatives Kundenfeedback wird offen im Team besprochen — unabhängig davon, wer davon betroffen ist.","Nach negativem Kundenfeedback wird zunächst nach Verantwortlichen gesucht, bevor über Verbesserungen gesprochen wird.","Für die Integration von Kundenfeedback in Verbesserungen gibt es einen festen Ablauf, der bekannt ist und tatsächlich angewendet wird."] }
+    "Alltag & Routinen": { items:[25,26,27,28], q:["Rückmeldung zu Verhalten und Arbeitsergebnissen kommt von sich aus.","Entscheidungen, die die eigene Arbeit betreffen, werden nachvollziehbar erklärt — dies gilt ebenso für die übergeordneten Ebenen.","Kritik wird hinter dem Rücken der Betroffenen geäußert.","Für Feedback gibt es feste, wiederkehrende Gelegenheiten (z. B. regelmäßige Rückblicke, Einzelgespräche)."] },
+    "Ausnahmesituationen": { items:[29,30,31,32], q:["Bei Fehlern wird nach der Ursache gefragt, nicht nach dem Schuldigen.","Eigene Fehler und Unsicherheiten werden offen angesprochen — dies gilt ebenso für die übergeordneten Ebenen.","Kritisches Feedback wird eher vermieden, um Konflikte zu umgehen oder aus Sorge vor Nachteilen.","Für kritisches Feedback an die nächste Ebene gibt es einen bekannten und vertraulich nutzbaren Weg."] },
+    "Kunden & Markt": { items:[33,34,35,36], q:["Kundenfeedback wird systematisch erfasst und intern geteilt.","Auch negatives Kundenfeedback wird offen im Team besprochen — dies gilt ebenso für die übergeordneten Ebenen.","Nach Kundenbeschwerden wird erst gefragt, wer schuld ist, statt was besser werden kann.","Es gibt einen festen Ablauf, wie Kundenfeedback in Verbesserungen einfließt — den alle kennen und nutzen."] }
   },
   "Innovation & Lernen": {
-    "Alltag & Routinen": { items:[37,38,39,40], q:["Mitarbeitende haben im Arbeitsalltag tatsächlich Zeit und Gelegenheit, neue Ideen zu erproben.","Verbesserungsvorschläge werden zeitnah aufgegriffen und geprüft — unabhängig von Position oder Hierarchieebene.","Neue Ideen werden meist mit Verweis auf Zeitmangel abgeblockt.","Für Ideen- und Verbesserungsarbeit gibt es ein festes Zeitbudget oder Format, das bekannt ist und tatsächlich genutzt wird."] },
-    "Ausnahmesituationen": { items:[41,42,43,44], q:["Gescheiterte Projekte werden offen analysiert, um daraus zu lernen.","Gut begründete Versuche werden auch dann anerkannt, wenn sie nicht zum gewünschten Ergebnis führen — unabhängig von Position oder Hierarchieebene.","Nach einem gescheiterten Versuch werden neue Ideen zunächst vorsichtiger oder gar nicht mehr eingebracht.","Für Erkenntnisse aus gescheiterten Vorhaben gibt es eine feste Gelegenheit zur Festhaltung, die bekannt ist und tatsächlich genutzt wird."] },
-    "Kunden & Markt": { items:[45,46,47,48], q:["Kundenfeedback fließt sichtbar in neue oder verbesserte Angebote ein.","Es wird aktiv nach Ideen für neue Lösungen bei Kunden gefragt — unabhängig davon, wer im Haus dafür zuständig ist.","Kundenanregungen zu neuen Ideen versanden meist ohne Rückmeldung.","Für die Einbindung von Kundenimpulsen in die Weiterentwicklung von Produkten, Dienstleistungen oder Abläufen gibt es einen festen Ablauf, der bekannt ist und tatsächlich angewendet wird."] }
+    "Alltag & Routinen": { items:[37,38,39,40], q:["Mitarbeitende nehmen sich im Arbeitsalltag Zeit, neue Ideen auszuprobieren.","Verbesserungsvorschläge werden zeitnah aufgegriffen und geprüft — dies gilt ebenso für die übergeordneten Ebenen.","Neue Ideen werden meist mit Verweis auf Zeitmangel abgeblockt.","Für Ideen- und Verbesserungsarbeit gibt es ein festes Zeitbudget oder Format."] },
+    "Ausnahmesituationen": { items:[41,42,43,44], q:["Wenn ein Projekt schiefgeht, wird offen besprochen, was daraus zu lernen ist.","Gut begründete Versuche werden auch dann anerkannt, wenn sie nicht zum gewünschten Ergebnis führen — dies gilt ebenso für die übergeordneten Ebenen.","Nach einem Fehlschlag bringt man neue Ideen vorsichtiger oder gar nicht mehr ein.","Für Erkenntnisse aus gescheiterten Vorhaben gibt es eine feste Gelegenheit, sie festzuhalten."] },
+    "Kunden & Markt": { items:[45,46,47,48], q:["Kundenfeedback fließt sichtbar in neue oder verbesserte Angebote ein.","Es wird aktiv nach Ideen für neue Lösungen bei Kunden gefragt — dies gilt ebenso für die übergeordneten Ebenen.","Anregungen von Kunden bleiben ohne Rückmeldung.","Es gibt einen festen Ablauf, wie Kundenimpulse in Produkte, Leistungen oder Abläufe einfließen."] }
   },
   "Zusammenarbeit & Teamgeist": {
-    "Alltag & Routinen": { items:[49,50,51,52], q:["Informationen werden von sich aus geteilt, statt zurückgehalten zu werden.","Kolleg:innen unterstützen sich gegenseitig auch über Teamgrenzen hinweg — unabhängig von Position oder Hierarchieebene.","Wichtige Informationen erreichen andere Teams häufig erst, wenn Probleme entstanden sind.","Für informellen, teamübergreifenden Austausch gibt es eine feste Gelegenheit, die bekannt ist und tatsächlich genutzt wird."] },
-    "Ausnahmesituationen": { items:[53,54,55,56], q:["Bei Überlastung einzelner Kolleg:innen springt das Team zeitnah unterstützend ein.","Übergaben (z. B. bei Urlaub, Wechsel) laufen strukturiert und vollständig ab — unabhängig von Position oder Hierarchieebene.","Bei Konflikten zwischen Teams wird eher gegeneinander als miteinander gearbeitet.","Für Unterstützung bei Überlastung einzelner Kolleg:innen gibt es eine vereinbarte Vorgehensweise, die bekannt ist und tatsächlich angewendet wird."] },
-    "Kunden & Markt": { items:[57,58,59,60], q:["Die beteiligten Bereiche arbeiten bei Kundenanliegen an einer gemeinsamen Lösung.","Informationen zu Kunden werden zwischen den beteiligten Bereichen zuverlässig geteilt — unabhängig davon, wer im Haus dafür zuständig ist.","Zwischen Abteilungen kommt es bei Kundenanliegen häufig zu Reibungsverlusten oder Zuständigkeitsstreit.","Für die Verfügbarkeit von Kundeninformationen bei Übergaben gibt es ein gemeinsames System, das bekannt ist und tatsächlich angewendet wird."] }
+    "Alltag & Routinen": { items:[49,50,51,52], q:["Informationen werden von sich aus geteilt, statt zurückgehalten zu werden.","Kolleg:innen helfen sich auch über Teamgrenzen hinweg — dies gilt ebenso für die übergeordneten Ebenen.","Wichtige Informationen erreichen andere Teams häufig erst, wenn Probleme entstanden sind.","Für informellen, teamübergreifenden Austausch gibt es eine feste Gelegenheit."] },
+    "Ausnahmesituationen": { items:[53,54,55,56], q:["Bei Überlastung einzelner Kolleg:innen springt das Team zeitnah unterstützend ein.","Übergaben (Urlaub, Wechsel) laufen vollständig und nachvollziehbar ab — dies gilt ebenso für die übergeordneten Ebenen.","Bei Konflikten zwischen Teams wird gegeneinander gearbeitet.","Für Unterstützung bei Überlastung einzelner Kolleg:innen gibt es eine vereinbarte Vorgehensweise."] },
+    "Kunden & Markt": { items:[57,58,59,60], q:["Die beteiligten Bereiche arbeiten bei Kundenanliegen an einer gemeinsamen Lösung.","Informationen zu Kunden werden zwischen den beteiligten Bereichen zuverlässig geteilt — dies gilt ebenso für die übergeordneten Ebenen.","Zwischen Abteilungen kommt es bei Kundenanliegen häufig zu Reibungsverlusten oder Zuständigkeitsstreit.","Für Kundeninformationen bei Übergaben gibt es ein gemeinsames System."] }
   }
 };
 const WERTE = Object.keys(DATA);
@@ -333,6 +428,21 @@ function scaleRow(itemNum, value, isRitual){
 
 const AUSNAHME_FELD = "Ausnahmesituationen";
 const AUSNAHME_HINWEIS = "Urteile in diesem Feld beruhen eher auf einzelnen erinnerten Vorfällen als auf beobachtbarer Häufigkeit — als zusätzlicher Diagnosehinweis zu lesen, nicht als härtere Kennzahl.";
+const FT2_HINWEIS = "Dieser Wert beschreibt ein Signal über mehrere Ebenen hinweg, nicht die Zuordnung zu einer bestimmten Führungsperson oder -ebene — Ausgangspunkt für die Ursachen-Analyse.";
+
+// Verankerungs-Kategorie (Fragetyp 4, kategorial statt Mittelwert — Handbuch v1.7):
+// 1 = Strukturlücke, 2–3 = Umsetzungslücke, 4–5 = verankert.
+const VERANKERUNG_KONTEXT = {
+  "Strukturlücke": "Es gibt keine Regelung, die hier unterstützen könnte.",
+  "Umsetzungslücke": "Eine Regelung existiert, ist aber kaum bekannt oder wird selten angewendet.",
+  "verankert": "Eine Regelung existiert und wird im Alltag angewendet."
+};
+function verankerungsKategorie(v){
+  if(v === 'nb' || v === undefined || v === null) return null;
+  if(v === 1) return 'Strukturlücke';
+  if(v === 2 || v === 3) return 'Umsetzungslücke';
+  return 'verankert'; // 4 oder 5
+}
 
 function computeCellAmpel(q1, q2, q3raw, feld){
   // "nicht beurteilbar" (Wert 'nb') fließt nicht numerisch in den Mittelwert ein.
@@ -346,18 +456,19 @@ function computeCellAmpel(q1, q2, q3raw, feld){
   const values = validIdx.map(i => i === 2 ? (6 - raw[2]) : raw[i]); // Reverse-Item (Index 2) invertieren
   const avg = values.reduce((a,b)=>a+b,0) / values.length;
 
-  // Einheitliche Ampellogik für ALLE Felder (seit v3 / finaler Prüf-Loop — ersetzt die
-  // frühere zweistufige Sonderregel für Ausnahmesituationen). Ausnahmesituationen
-  // erhalten stattdessen zusätzlich ein Warnsignal unter 3,5, siehe AUSNAHME_HINWEIS.
-  // Seit v3 (Vereinfachungs-Loop): Ampel hängt ausschließlich vom Mittelwert ab —
-  // eine frühere Streuungsregel (unvalidierter Platzhalter-Schwellenwert) wurde bewusst
-  // entfernt, um keine Scheingenauigkeit in die Kunden-Ampel einzubauen.
+  // Einheitliche Ampellogik für ALLE Felder (Handbuch v1.6/v1.7) — ersetzt die frühere
+  // zweistufige Sonderregel für Ausnahmesituationen. Ampel hängt ausschließlich vom
+  // Mittelwert ab (>=4,0 Grün, 2,5 bis unter 4,0 Gelb, <2,5 Rot) — keine Streuungsregel.
   let ampel, label;
   if(avg >= 4.0){ ampel='green'; label='Match'; }
   else if(avg >= 2.5){ ampel='amber'; label='Gap'; }
   else { ampel='red'; label='Mismatch'; }
 
-  const kritischerHinweis = (feld === AUSNAHME_FELD) && (avg < 3.5);
+  // Warnsignal Ausnahmesituationen — Variante C (entschieden): Mittelwert < 3,5 UND
+  // mindestens 2 von 3 Verhaltensitems (nach Reverse-Umkodierung) unter der Schwelle.
+  // Verhindert, dass ein einzelner Ausreißer allein das Signal trägt (Variante A).
+  const anzahlUnterSchwelle = values.filter(v => v < 3.5).length;
+  const kritischerHinweis = (feld === AUSNAHME_FELD) && (avg < 3.5) && (anzahlUnterSchwelle >= 2);
   return { avg, ampel, label, notEvaluable:false, kritischerHinweis };
 }
 
@@ -474,14 +585,14 @@ function prepareResults(){
   WERTE.forEach(w => {
     FELDER.forEach(f => {
       const cell = cellOf(w, f);
-      const [n1,n2,n3] = cell.items;
-      const q1 = answers[n1], q2 = answers[n2], q3raw = answers[n3];
+      const [n1,n2,n3,n4] = cell.items;
+      const q1 = answers[n1], q2 = answers[n2], q3raw = answers[n3], q4 = answers[n4];
       const r = computeCellAmpel(q1, q2, q3raw, f);
       const invQ3 = q3raw === 'nb' ? null : 6 - q3raw;
       all.push({
         wert:w, feld:f, ...r,
-        q1, q2, q3raw, invQ3,
-        text1: cell.q[0], text2: cell.q[1], text3: cell.q[2]
+        q1, q2, q3raw, invQ3, q4,
+        text1: cell.q[0], text2: cell.q[1], text3: cell.q[2], text4: cell.q[3]
       });
     });
   });
@@ -520,20 +631,54 @@ function renderBreakdown(c, mode='min'){
   ].map(row => {
     const isHighlight = keys.includes(row.key);
     const isNb = row.val === 'nb' || row.val === null;
+    // Fragetyp-2-Hinweis: nur an der eigenen Zeile, nur wenn Fragetyp 2 zu den
+    // hervorgehobenen (schwächsten) Items dieser Zelle gehört — analog zur
+    // Reverse-Item-Zusatzerklärung, die auch nur an ihrer eigenen Zeile steht.
+    const note = (row.key === 'q2' && isHighlight && mode === 'min') ? FT2_HINWEIS : row.revNote;
     return `
       <div class="bd-row ${isHighlight?highlightClass:''}">
         <div class="bd-top">
           <span class="bd-qtext-main">„${row.text}"</span>
           <span class="bd-val">${isNb ? 'n.b.' : row.val+'/5'}</span>
         </div>
-        ${row.revNote ? `<div class="bd-rawnote">${row.revNote}</div>` : ''}
+        ${note ? `<div class="bd-rawnote">${note}</div>` : ''}
       </div>`;
   }).join('');
+
+  // Fragetyp 4 (Organisatorische Verankerung): kein Teil des Mittelwerts/der Ampel,
+  // deshalb eigene Zeile ohne Hervorhebungslogik und ohne Methodik-Jargon für
+  // Teilnehmende. Struktur-Einordnung erscheint bei JEDER Zelle (unabhängig vom Feld) —
+  // die Kategorie (Strukturlücke/Umsetzungslücke/verankert) ist nicht auf
+  // Ausnahmesituationen beschränkt, sondern eine allgemeine Einordnung von Fragetyp 4.
+  const vk = verankerungsKategorie(c.q4);
+  const isQ4Nb = c.q4 === 'nb' || c.q4 === undefined;
+  const strukturNote = vk ? `<div class="bd-rawnote"><b>Struktur:</b> ${vk} — ${VERANKERUNG_KONTEXT[vk]}</div>` : '';
+  const q4Row = `
+      <div class="bd-row">
+        <div class="bd-top">
+          <span class="bd-qtext-main">„${c.text4}"</span>
+          <span class="bd-val">${isQ4Nb ? 'n.b.' : c.q4+'/5'}</span>
+        </div>
+        ${strukturNote}
+      </div>`;
 
   return `
     <div class="breakdown">
       <div class="breakdown-title">Woraus setzt sich diese Bewertung zusammen?</div>
       ${rows}
+      ${q4Row}
+    </div>`;
+}
+
+// Ausnahmesituationen-Hinweis als Dropdown (standardmäßig eingeklappt) — verpflichtender
+// Diagnosehinweis bleibt Bestandteil des Berichts, steht aber ab v1.16 abrufbar statt
+// dauerhaft im Fließtext (angepasste GESETZT-Regel, siehe Auswertungslogik Abschnitt 6).
+// Einheitlich bei Potenzialpunkten UND Stärken, wo immer kritischerHinweis zutrifft.
+function renderAusnahmeToggle(id){
+  return `
+    <div class="ausnahme-toggle" data-id="${id}">⚠ Hinweis zu diesem Feld anzeigen</div>
+    <div class="ausnahme-details" id="ausnahmeDetails${id}" style="display:none;">
+      <div class="special-note">⚠ ${AUSNAHME_HINWEIS} Realitätscheck vor der Maßnahme: wiederkehrender Fall oder Einzelvorfall?</div>
     </div>`;
 }
 
@@ -598,12 +743,17 @@ function renderResults(){
 
   const strengthCardsHtml = strengthCells.map((c, idx) => {
     return `
-      <div class="gap-card ${ampelCardClass(c.ampel)} strength-slim">
-        <div class="gap-eyebrow">Stärke ${idx+1}</div>
-        <div class="gap-title">${c.wert}</div>
-        <div class="gap-sub">${c.feld}</div>
-        <span class="gap-badge ${ampelBadgeClass(c.ampel)}">${c.label} · Ø ${c.avg.toFixed(2)}</span>
-        ${c.kritischerHinweis ? `<div class="special-note">⚠ ${AUSNAHME_HINWEIS}</div>` : ''}
+      <div class="gap-card ${ampelCardClass(c.ampel)} strength-slim strength-compact">
+        <div class="strength-row">
+          <span class="strength-label">Stärke ${idx+1}</span>
+          <span class="strength-title">${c.wert} — ${c.feld}</span>
+          <span class="gap-badge ${ampelBadgeClass(c.ampel)}">${c.label} · Ø ${c.avg.toFixed(2)}</span>
+        </div>
+        ${c.kritischerHinweis ? renderAusnahmeToggle('str'+idx) : ''}
+        <div class="strength-toggle" data-idx="${idx}">Details anzeigen</div>
+        <div class="strength-details" id="strengthDetails${idx}" style="display:none;">
+          ${renderBreakdown(c, 'max')}
+        </div>
       </div>`;
   }).join('');
 
@@ -615,7 +765,7 @@ function renderResults(){
         <div class="gap-title">${c.wert}</div>
         <div class="gap-sub">${c.feld}</div>
         <span class="gap-badge ${ampelBadgeClass(c.ampel)}">${c.label} · Ø ${c.avg.toFixed(2)}</span>
-        ${c.kritischerHinweis ? `<div class="special-note">⚠ ${AUSNAHME_HINWEIS} Bevor du hier eine Maßnahme festlegst, lohnt sich ein kurzer Realitätscheck: Betrifft das einen echten wiederkehrenden Fall oder einen einzelnen, besonders präsenten Vorfall?</div>` : ''}
+        ${c.kritischerHinweis ? renderAusnahmeToggle('gap'+idx) : ''}
         ${renderBreakdown(c, 'min')}
         <div class="gap-prompt">
           Hier sehe ich den größten Handlungsbedarf.
@@ -664,6 +814,26 @@ function renderResults(){
     ta.oninput = (e) => { actionTexts[e.target.dataset.key] = e.target.value; };
   });
 
+  document.querySelectorAll('.strength-toggle').forEach(btn => {
+    btn.onclick = () => {
+      const idx = btn.dataset.idx;
+      const details = document.getElementById('strengthDetails'+idx);
+      const isHidden = details.style.display === 'none';
+      details.style.display = isHidden ? 'block' : 'none';
+      btn.textContent = isHidden ? 'Details verbergen' : 'Details anzeigen';
+    };
+  });
+
+  document.querySelectorAll('.ausnahme-toggle').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      const details = document.getElementById('ausnahmeDetails'+id);
+      const isHidden = details.style.display === 'none';
+      details.style.display = isHidden ? 'block' : 'none';
+      btn.textContent = isHidden ? '⚠ Hinweis verbergen' : '⚠ Hinweis zu diesem Feld anzeigen';
+    };
+  });
+
   document.getElementById('btnPrint').onclick = () => { printResult(); };
   document.getElementById('btnSaveActions').onclick = () => {
     finishAndExport();
@@ -675,7 +845,7 @@ function buildPayload(){
     wert: c.wert, feld: c.feld, ampel: c.ampel, avg: c.avg,
     action: actionTexts[c.wert+'||'+c.feld] || ''
   }));
-  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.13', answers, team: team || null, ts: Date.now(), actions };
+  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.17', answers, team: team || null, ts: Date.now(), actions };
 }
 
 // Diese Seite läuft rein im Browser (z. B. als statische GitHub-Pages-Seite) und hat keinen
