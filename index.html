@@ -1,7 +1,59 @@
 <!DOCTYPE html>
 <!--
   BAM — Behavior Alignment Matrix · Teilnehmerversion
-  MindnessConsult · Version 1.19
+  MindnessConsult · Version 1.20
+
+  Änderungen zu 1.20 (Startseite neu strukturiert, Bericht/Dankseite überarbeitet,
+  Wortwahl vereinheitlicht):
+  - Startseite komplett neu aufgebaut: neue Kernfakten-Zeile (60 Aussagen · 5 Werte ·
+    10-15 Minuten · läuft nur im Browser) ersetzt den bisherigen "Mechanik"-Absatz.
+    "Kein Richtig/Falsch" als eigene hervorgehobene Callout-Box statt Nebensatz im
+    Kontext-Absatz. Anonymität & Datenschutz nach vorne gezogen (direkt nach den
+    Kernfakten statt am Seitenende) und um explizite Anonymitäts-Zusage ergänzt: "es
+    werden weder Name noch E-Mail-Adresse erfasst, es gibt keine Anmeldung" - das
+    beantwortet die zuvor offene Frage, ob die Führungskraft erkennt, wer wie
+    geantwortet hat. Füreinander-Gedanke als eigener kurzer Absatz statt im
+    Kontext-Satz versteckt. "Worum es geht" gekürzt. Fünf durchgehende Fließtext-
+    Absätze damit auf einen Fakten-Header plus vier knappe Blöcke reduziert.
+  - Fragebogen-Hinweisbox: Wortwahl von "erlebst" auf "insgesamt wahrnimmst"
+    umgestellt - Grund: Vokabular für "wie du das Umfeld einschätzt" war uneinheitlich
+    (erleben/bewerten/wahrnehmen an verschiedenen Stellen), jetzt durchgängig
+    "wahrnehmen" + "insgesamt" an allen drei betroffenen Stellen (Fragebogen-
+    Hinweisbox, Kein-Richtig-Falsch-Box, Stärken-Überschrift).
+  - Bericht: Einleitungssatz um Klarstellung ergänzt, dass eine teamweite Auswertung
+    erst durch die Beratung entsteht (vorher nur in der jetzt entfallenen globalen
+    Fußnote enthalten, dort aber unpassend, weil "wer antwortet" und "was wird
+    bewertet" vermischt wurden - siehe Fußnoten-Punkt unten).
+  - Stärken-Überschrift von "Hier seid ihr als Team bereits stark" auf "Hier nimmst du
+    euer Team bereits als stark wahr" umgestellt - macht explizit, dass eine
+    Einzelperson bewertet (nicht das Team selbst antwortet), UND dass das Team der
+    Bewertungsgegenstand ist (keine reine Selbsteinschätzung). Vorher wirkte "ihr als
+    Team" wie ein Widerspruch zur Fußnote "ausschließlich deine eigenen Antworten" -
+    tatsächlich kein Widerspruch (unterschiedliche Aussage: Urheberschaft vs.
+    Bewertungsgegenstand), aber uneindeutig formuliert.
+  - Stärken-Erläuterungstext ersetzt: alter Text ("Die drei Zellen mit dem geringsten
+    Abstand...") stimmte seit v1.18 nicht mehr mit der Befundtyp-Logik überein und
+    versprach immer drei Zellen, obwohl "Belastbare Stärke" beide Bedingungen
+    gleichzeitig braucht (Verhalten >= 4,0 UND Verankerung >= 4) und dadurch oft
+    weniger als drei Treffer liefert (Simulation mit 200 zufälligen Durchläufen:
+    median 1 Treffer, nur 4,5% der Faelle liefern alle drei). Neuer Text benennt beide
+    Kriterien UND dass weniger als drei normal ist.
+  - Analog: Potenzialpunkte-Erläuterungstext war bereits in v1.19 korrigiert worden
+    (siehe dort), Stärken-Text war dabei übersehen worden - jetzt nachgezogen.
+  - Fußnote aus dem globalen Seitenrahmen entfernt (war zuvor auf jeder Seite
+    sichtbar, inkl. Start-, Fragebogen- und Dankseite) und auf reine Marken-/
+    Versionszeile gekürzt, nur noch innerhalb der Ergebnisseite. Der inhaltliche Teil
+    ("teamweite Auswertung entsteht erst durch die Beratung") ist in den
+    Ergebnisseiten-Einleitungssatz gewandert (siehe oben) statt ersatzlos zu
+    entfallen.
+  - Dankseite: neue Wertschätzung-Eröffnung vor dem bisherigen Text ("Danke, dass du
+    dir die Zeit genommen hast...") sowie "Nächste Schritte"-Absatz, der den PDF-/
+    Druck-Hinweis und den Datei-Download-Hinweis zusammenfasst statt beides implizit
+    im bisherigen Fließtext zu vermischen.
+  - Vermerkt, nicht Teil dieser Version: Roadmap-Hinweis auf ein geplantes
+    Datenbank-basiertes Release (V2.x), das die manuelle Weitergabe der
+    heruntergeladenen Antwortdatei ersetzen soll - gehört ins Methodik-Handbuch
+    Kap. 9 (Technische Umsetzung), nicht in die Teilnehmerversion selbst.
 
   Änderungen zu 1.19 (Textüberarbeitung Startseite/Fragebogen/Bericht, Code-Bereinigung):
   - Banner (durchgehend sichtbarer Intro-Satz auf jeder Seite) entfernt — trug zeitlich
@@ -196,6 +248,101 @@
     sonst einheitlichen Hierarchie-Wording bei Fragetyp 2.
 
   Änderungen zu 1.7:
+  Änderungen zu 1.29 (Farbige Ampel im Druck + klare 3-Seiten-Struktur, 22.08.2026):
+  - Bug behoben: Ampel-Hintergrundfarben (Gruen/Gelb/Rot) fehlten im Ausdruck komplett.
+    Browser unterdruecken Hintergrundfarben beim Drucken standardmaessig (Tintensparen).
+    Fix: -webkit-print-color-adjust/print-color-adjust:exact auf * im Print-Media-Block.
+  - Seitenstruktur jetzt explizit erzwungen statt dem natuerlichen Fluss ueberlassen:
+    Seite 1 = nur Danke-Text, Rekap, Check-in-Box. Seite 2 = Report-Cover (Team/Datum/
+    Datenschutz) + Matrix + Staerken + Potenzialpunkte + Massnahmen. Seite 3ff = alle 60
+    Fragen. Neue Klasse .print-report-start (page-break-before:always) auf dem Report-
+    Cover-Div gesetzt.
+  - Fragenliste (Seite 3ff) kompakter: Zeilenabstand und Schriftgroesse im Druck reduziert
+    (.full-answers .fa-row etc., nur fuer den Druck, Bildschirmdarstellung unveraendert).
+
+  Änderungen zu 1.28 (Druck-Layout-Fix Staerken-Grid, 22.08.2026):
+  - Bug behoben: Staerken-Karten quetschten sich im Druck auf 1/3 Seitenbreite (3-spaltiges
+    CSS-Grid .strength-grid, Umschaltung auf 1 Spalte griff nur unter 700px Bildschirmbreite
+    - die Druckseite ist breiter). Dadurch brach der Fragen-Text der Aufschluesselung in
+    winzige Ein-Wort-Zeilen um. Fix: .strength-grid im Druck fest auf 1 Spalte.
+  - Gleichzeitig .strength-grid aus page-break-inside:avoid entfernt (verursachte durch
+    Ursache 1 einen grossen leeren Seitenbereich, weil der - zu hohe - Gesamtblock nicht
+    mehr auf die Seite passte und komplett verschoben wurde). Einzelne Karten bleiben ueber
+    .gap-card weiterhin geschuetzt (page-break-inside:avoid).
+
+  Änderungen zu 1.27 (Druck-Layout-Fixes, 22.08.2026):
+  - Bug behoben: leere erste Druckseite (nur Titel, kein Inhalt). Ursache: .card stand
+    in der page-break-inside:avoid-Liste; seit v1.25 umschliesst .card den kompletten
+    Report (weit groesser als eine Seite) - der Browser hat das Element deshalb komplett
+    auf Seite 2 verschoben, um die Regel bestmoeglich einzuhalten. .card aus der Liste
+    entfernt, die sinnvollen Einzel-Elemente (gap-card, strength-grid, Matrix, fa-wert)
+    behalten die Regel weiterhin.
+  - Fragenliste (alle 60 Fragen): Nummer bekommt eigene, rechtsbuendige Spalte
+    (fa-num, Grid statt Flex) statt inline im Fliesstext ("Frage N — ..."). Mehrzeilige
+    Fragen brechen dadurch sauber unter dem Fragetext um, nicht unter der Nummer.
+
+  Änderungen zu 1.26 (Korrektur gegen kanonische Skalenlegende, 22.08.2026):
+  - Abgleich mit Blatt "Legende & Skalen" (Arbeitstabelle) ergab zwei Abweichungen aus
+    v1.24/1.25, die nicht bewusst freigegeben waren - beide zurueckgenommen:
+  - Mittel-Label Verhaltensskala: "3 · gelegentlich" -> "3 · teilweise" (kanonisch:
+    "teilweise / manchmal").
+  - n.b.-Button: "keine Antwort" -> zurueck zu "n.b." (kanonisch: "nicht beurteilbar",
+    mit eigener Auswertungslogik lt. Handbuch Kap. 6.2 - "keine Antwort" waere eine
+    andere Bedeutung gewesen, keine reine Umbenennung).
+  - Handbuch/Arbeitstabelle mussten dafuer NICHT geaendert werden - sie waren bereits
+    korrekt, nur der Code wich ab.
+
+  Änderungen zu 1.25 (Ein einziger Druckpunkt, 22.08.2026):
+  - Bug behoben: Es gab zwei unabhängige Druckwege (Ergebnis-Seite vor Abschluss, Danke-
+    Seite nach Abschluss) mit unterschiedlichem, jeweils unvollständigem Inhalt.
+  - "Als PDF speichern/drucken" auf der Ergebnis-Seite entfernt. Druck ist jetzt nur noch
+    von der Danke-Seite aus möglich, also erst nach Eintragen der Maßnahmen UND Abschluss.
+  - Matrix, Stärken- und Potenzialpunkt-Karten (inkl. Anregungen und final eingetragener
+    Maßnahmentexte, statisch statt Eingabefeld) wurden dafür in den Druckbereich der
+    Danke-Seite verschoben (print-only, im Browser weiterhin nur die kurze Zusammenfassung
+    sichtbar). Matrix-/Stärken-/Potenzial-Erzeugung dafür in wiederverwendbare Funktionen
+    (computeMatrixRowsHtml, computeStrengthCardsHtml, computeGapCardsHtml) ausgelagert.
+  - Dabei einen zweiten, durch das Refactoring entstandenen Bug direkt mitbehoben: eine
+    verwaiste Button-Bindung (document.getElementById('btnPrint')) hätte bei jedem Aufruf
+    der Ergebnis-Seite einen stillen Laufzeitfehler ausgelöst und dabei auch die Bindung
+    des "Ergebnis abschließen"-Buttons verhindert.
+
+  Änderungen zu 1.24 (Restliche vorgemerkte Punkte, 22.08.2026):
+  - Mittel-Label "3 · gelegentlich" bei der Verhaltensskala ergänzt (1 · fast nie / 3 ·
+    gelegentlich / 5 · fast immer). Zugleich Ausrichtungs-Fix: n.b.-Button (jetzt "keine
+    Antwort") auf feste Breite (64px) gestellt, Unterschriftenzeile bekommt einen exakt
+    gleich breiten Spacer - Labels sitzen jetzt wirklich über den zugehörigen Buttons statt
+    ueber "keine Antwort" verschoben.
+  - Maßnahmen-Anregungen: bei jedem Potenzialpunkt zwei immer sichtbare Bullets vor dem
+    Textfeld ("Eigenes Verhalten" / "Team ansprechen"), je Feld unterschiedlich (Alltag &
+    Routinen / Ausnahmesituationen / Kunden & Markt). Kein zusätzlicher Praxistipp zum
+    "Wie ansprechen" - bleibt bewusst beim BAM-Pitstopp-Call.
+  - PDF-Report: Ergebnis-Seite ist jetzt der Report (Option A). Druck-Deckblatt
+    (print-only, nicht im Browser sichtbar) mit Danke-Text, Datenschutzhinweis sowie
+    Team/Bereich sowie Erhebungsdatum. Seitenumbruch vor dem Fragenblock 1-60 erzwungen
+    (page-break-before:always). Kein Namensfeld (bewusst nicht umgesetzt).
+  - Datenschutzhinweis auf dem Deckblatt ist eine gekürzte Fassung des Startseiten-Texts
+    (ohne den Satz zum Datei-Download, der dort erst nach Abschluss relevant ist).
+
+  Änderungen zu 1.23 (Revert + 2-Reihen-Layout Verankerungsskala, 22.08.2026):
+  - Revert v1.21: volle Labels ("nicht vorhanden" ... "konsequent angewendet") wieder
+    hergestellt, gekürzte Fassung mit geteilter Unterschrift zurückgenommen.
+  - "n.b." zu "keine Antwort" umbenannt (zweizeilig), betrifft beide Skalentypen.
+  - Strukturfix statt weiterem CSS-Tuning: Verankerungsskala (6 Elemente in eine Reihe
+    passten auf ~360px nicht, Woerter brachen einzeln um) bricht ab 480px Breite fest
+    auf zwei Reihen um (1-2-3 / 4-5-keine Antwort), je Button 1/3 statt 1/6 der Breite.
+    Normale Verhaltensskala (Fragetyp 1-3, nur Ziffern) bleibt einreihig, unveraendert.
+
+  Änderungen zu 1.21 (Verankerungsskala responsiv, Diskussion vom 22.08.2026):
+  - Overflow-Problem behoben: Labels "selten/regelmäßig/konsequent" (Stufe 3-5) trugen
+    zusätzlich "angewendet" und liefen auf schmalen Screens (~360px) über den Button-Rand
+    hinaus. Redundantes Wort (stand 4x identisch in derselben Zeile) entfernt.
+  - Stufe 1/2 unverändert ("nicht vorhanden" / "kaum bekannt" bewusst nicht gekürzt,
+    inhaltlich nicht symmetrisch zu 3-5).
+  - Stufe 3-5 gekürzt auf "selten" / "regelmäßig" / "konsequent"; "angewendet" steht
+    jetzt einmalig als gemeinsame Unterschrift unter Stufe 3-5 (.scale-caption-split).
+  - CSS: min-width:0 auf .scale-btn (verhindert Flex-Overflow), word-break auf .sb-label,
+    zusätzliche @media-Regel unter 400px (kleinere Schrift/Padding) als Sicherheitsnetz.
   - Verankerungsskala (alle 15 Fragetyp-4-Items) auf zweizeilige Buttons umgestellt:
     jede Zahl 1-5 trägt jetzt ihr eigenes Kurzlabel darunter (z. B. "3 / selten
     angewendet"), statt nur die Endpunkte 1 und 5 zu beschriften. Grund: die
@@ -279,6 +426,10 @@
   h1{ font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase; font-size:38px; line-height:1; color:var(--navy); }
   h2.section-h{ font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase; font-size:23px; color:var(--navy); margin-top:4px; }
   .intro{ margin-top:14px; font-size:13.5px; line-height:1.6; color:#333; max-width:680px; }
+  .fact-row{ display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:16px; padding:12px 14px; background:var(--navy); color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.02em; font-size:13px; text-transform:uppercase; }
+  .fact-row span{ white-space:nowrap; }
+  .fact-row span:not(:last-child)::after{ content:"·"; margin-left:14px; color:var(--amber); }
+  .intro-callout{ margin-top:16px; background:#FAF8F2; border-left:4px solid var(--teal); padding:12px 14px; font-size:13px; line-height:1.55; color:#333; max-width:100%; }
 
   .card{ background:#fff; border:2px solid var(--navy); padding:22px 24px; margin-top:24px; }
 
@@ -297,13 +448,27 @@
   .qtag{ font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; font-size:10px; color:#888; display:flex; align-items:center; gap:6px; }
   .qtext{ font-size:13.5px; line-height:1.4; margin-top:4px; }
   .scale-row{ display:flex; gap:6px; margin-top:8px; }
-  .scale-btn{ flex:1; text-align:center; padding:9px 0; border:1.6px solid var(--navy); background:#fff; color:var(--navy); cursor:pointer; font-family:'Anton',sans-serif; font-size:15px; }
+  .scale-btn{ flex:1; min-width:0; text-align:center; padding:9px 0; border:1.6px solid var(--navy); background:#fff; color:var(--navy); cursor:pointer; font-family:'Anton',sans-serif; font-size:15px; }
   .scale-btn.scale-btn-labeled{ padding:8px 3px; display:flex; flex-direction:column; align-items:center; gap:2px; }
   .scale-btn-labeled .sb-num{ font-family:'Anton',sans-serif; font-size:15px; line-height:1; }
-  .scale-btn-labeled .sb-label{ font-family:'Inter',sans-serif; font-weight:500; font-size:9.5px; line-height:1.2; color:#666; text-transform:none; }
+  .scale-btn-labeled .sb-label{ font-family:'Inter',sans-serif; font-weight:500; font-size:9.5px; line-height:1.2; color:#666; text-transform:none; word-break:break-word; overflow-wrap:break-word; }
   .scale-btn.sel .sb-label{ color:var(--cream); }
   .scale-btn.sel{ background:var(--navy); color:var(--cream); }
-  .scale-caption{ display:flex; justify-content:space-between; font-size:9.5px; color:#999; margin-top:3px; }
+  .scale-btn-nb{ flex:0 0 64px; width:64px; padding:9px 4px; font-family:'Barlow Condensed',sans-serif; font-size:11px; line-height:1.25; text-transform:uppercase; letter-spacing:0.03em; }
+  @media (max-width:480px){
+    .scale-row-verankerung{ flex-wrap:wrap; row-gap:6px; }
+    .scale-row-verankerung .scale-btn{ flex:0 0 calc(33.333% - 4px); }
+    .scale-row-verankerung .scale-btn-nb{ padding:8px 3px; font-size:9.5px; text-transform:none; letter-spacing:normal; }
+  }
+  @media (max-width:400px){
+    .scale-btn-labeled .sb-label{ font-size:8.5px; }
+    .scale-btn-labeled{ padding:7px 2px; }
+  }
+  .scale-caption{ display:flex; font-size:9.5px; color:#999; margin-top:3px; }
+  .scale-caption .sc-txt{ flex:1; text-align:center; }
+  .scale-caption .sc-txt:first-child{ text-align:left; }
+  .scale-caption .sc-txt:nth-child(3){ text-align:right; }
+  .scale-caption .sc-spacer{ flex:0 0 64px; }
 
   .nav-row{ display:flex; justify-content:space-between; margin-top:26px; gap:10px; }
   .nav-btn{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:13.5px; padding:10px 18px; border:2px solid var(--navy); background:#fff; color:var(--navy); cursor:pointer; text-transform:uppercase; }
@@ -386,6 +551,12 @@
 
   .footnote{ margin-top:36px; font-size:10.5px; color:#555; line-height:1.7; border-top:1.5px solid var(--navy); padding-top:12px; }
 
+  .anregung-box{ margin-top:10px; font-size:11.5px; color:#555; line-height:1.5; background:#f7f5ee; border-left:3px solid var(--teal); padding:8px 10px; }
+  .anregung-item{ margin-top:5px; padding-left:14px; position:relative; }
+  .anregung-item:first-child{ margin-top:0; }
+  .anregung-item:before{ content:"–"; position:absolute; left:0; }
+  .anregung-label{ font-weight:700; color:var(--navy); }
+
   .ta-wrap{ position:relative; }
   .print-only{ display:none; }
   .gap-action-print{ font-size:12.5px; line-height:1.5; color:var(--ink); padding:4px 2px; }
@@ -395,25 +566,33 @@
   .fa-wert-title{ font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase; font-size:15px; color:var(--navy); border-bottom:1.5px solid var(--navy); padding-bottom:4px; margin-bottom:8px; }
   .fa-field{ margin-bottom:10px; }
   .fa-field-title{ font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; font-size:10.5px; color:var(--teal); margin-bottom:4px; }
-  .fa-row{ display:flex; justify-content:space-between; gap:10px; font-size:11px; padding:3px 0; border-bottom:1px dotted var(--hair); }
-  .fa-val{ font-weight:700; color:var(--navy); flex-shrink:0; }
+  .fa-row{ display:grid; grid-template-columns:32px 1fr 38px; column-gap:10px; align-items:baseline; font-size:11px; padding:4px 0; border-bottom:1px dotted var(--hair); }
+  .fa-num{ text-align:right; font-weight:700; color:var(--navy); font-family:'Barlow Condensed',sans-serif; }
+  .fa-qtext{ line-height:1.4; }
+  .fa-val{ font-weight:700; color:var(--navy); text-align:right; }
 
   @media print{
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; color-adjust:exact !important; }
     body{ background:#fff; padding:0; }
     .page{ box-shadow:none; max-width:100%; padding:20px 26px; }
     .nav-row, .nav-btn, #resultsBanner, .gap-textarea{ display:none !important; }
     .print-only{ display:block !important; }
-    .card, .gap-card, .strength-grid, table.dash-matrix, .fa-wert{ page-break-inside:avoid; }
+    .gap-card, table.dash-matrix, .fa-wert{ page-break-inside:avoid; }
+    .strength-grid{ grid-template-columns:1fr; }
     .strength-details{ display:block !important; }
     .strength-toggle{ display:none !important; }
     .ausnahme-details{ display:block !important; }
     .ausnahme-toggle{ display:none !important; }
     .breakdown{ page-break-inside:avoid; }
+    .report-cover{ border-bottom:1.5px solid var(--navy); padding-bottom:14px; margin-bottom:16px; }
+    .report-cover .report-meta{ font-size:11px; color:#666; }
+    .print-report-start{ page-break-before:always; }
+    .full-answers{ page-break-before:always; }
+    .full-answers .fa-row{ padding:2px 0; font-size:10px; }
+    .full-answers .fa-wert{ margin-top:10px; }
+    .full-answers .fa-field{ margin-bottom:6px; }
   }
 </style>
-<script>
-  window.addEventListener('beforeprint', () => { if(typeof syncPrintFields === 'function'){ syncPrintFields(); } });
-</script>
 </head>
 <body>
 <div class="page">
@@ -422,11 +601,6 @@
   <h1 id="pageTitle">BAM-Audit</h1>
 
   <div id="surveyView"></div>
-
-  <div class="footnote">
-    Diese Ansicht zeigt ausschließlich deine eigenen Antworten. Eine teamweite, aggregierte Auswertung über alle Teilnehmenden entsteht erst, wenn deine/dein Berater:in die heruntergeladenen Einzelergebnisse zusammenführt — diese Seite selbst führt keine Daten zusammen und sendet nichts an einen Server.<br>
-    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.19 · Fragenkatalog v4: 5 Kernwerte, 60 Basisfragen
-  </div>
 
 </div>
 
@@ -475,7 +649,7 @@ function cellOf(w, f){ return DATA[w][f]; }
 const VERANKERUNG_LABELS = ["nicht vorhanden","kaum bekannt","selten angewendet","regelmäßig angewendet","konsequent angewendet"];
 
 function scaleRow(itemNum, value, isVerankerung){
-  let html = `<div class="scale-row" data-item="${itemNum}">`;
+  let html = `<div class="scale-row ${isVerankerung?'scale-row-verankerung':''}" data-item="${itemNum}">`;
   for(let v=1; v<=5; v++){
     if(isVerankerung){
       const label = VERANKERUNG_LABELS[v-1].replace(' ', '<br>');
@@ -484,10 +658,10 @@ function scaleRow(itemNum, value, isVerankerung){
       html += `<div class="scale-btn ${value===v?'sel':''}" data-v="${v}">${v}</div>`;
     }
   }
-  html += `<div class="scale-btn ${value==='nb'?'sel':''} ${isVerankerung?'scale-btn-labeled':''}" data-v="nb" style="flex:0 0 auto; padding:9px 10px; font-family:'Barlow Condensed',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.03em;">n.b.</div>`;
+  html += `<div class="scale-btn scale-btn-nb ${value==='nb'?'sel':''} ${isVerankerung?'scale-btn-labeled':''}" data-v="nb">n.b.</div>`;
   html += `</div>`;
   if(!isVerankerung){
-    html += `<div class="scale-caption"><span>1 · fast nie</span><span>5 · fast immer</span></div>`;
+    html += `<div class="scale-caption"><span class="sc-txt">1 · fast nie</span><span class="sc-txt">3 · teilweise</span><span class="sc-txt">5 · fast immer</span><span class="sc-spacer"></span></div>`;
   }
   return html;
 }
@@ -495,6 +669,23 @@ function scaleRow(itemNum, value, isVerankerung){
 const AUSNAHME_FELD = "Ausnahmesituationen";
 const AUSNAHME_HINWEIS = "Urteile in diesem Feld beruhen eher auf einzelnen erinnerten Vorfällen als auf beobachtbarer Häufigkeit — als zusätzlicher Diagnosehinweis zu lesen, nicht als härtere Kennzahl.";
 const FT2_HINWEIS = "Dieser Wert beschreibt ein Signal über mehrere Ebenen hinweg, nicht die Zuordnung zu einer bestimmten Führungsperson oder -ebene — Ausgangspunkt für die Ursachen-Analyse.";
+
+// Maßnahmen-Anregungen (Diskussion vom 22.08.2026): zwei Blickrichtungen je Feld, immer
+// sichtbar. Bewusst kein Praxistipp zum "Wie ansprechen" - bleibt beim BAM-Pitstopp-Call.
+const MASSNAHME_ANREGUNG = {
+  "Alltag & Routinen": {
+    eigen: "Denk an eine wiederkehrende Situation aus deinem Alltag – wo genau könntest du in den nächsten 6 Wochen einmal anders reagieren?",
+    team: "Wenn dein eigenes Verhalten hier schon passt, das Team insgesamt aber nicht – wie könntest du das ansprechen, ohne Einzelne bloßzustellen?"
+  },
+  "Ausnahmesituationen": {
+    eigen: "Denk an den letzten Vorfall dieser Art – was würdest du diesmal als Erstes anders machen?",
+    team: "Wäre es hilfreich, den letzten Vorfall gemeinsam im Team zu besprechen, statt ihn nur bei dir zu verändern?"
+  },
+  "Kunden & Markt": {
+    eigen: "Denk an den letzten Kundenkontakt in diesem Bereich – was würdest du beim nächsten Mal anders ansprechen oder anders tun?",
+    team: "Ist das etwas, das eher zwischen den beteiligten Bereichen geklärt werden müsste als bei dir allein?"
+  }
+};
 
 // Verankerungs-Kategorie (Fragetyp 4, kategorial statt Mittelwert — Handbuch v1.7):
 // 1 = Strukturlücke, 2–3 = Umsetzungslücke, 4–5 = verankert.
@@ -550,12 +741,19 @@ function renderIntro(){
   view.innerHTML = `
     <div class="card">
       <h2 class="section-h">Worum geht es hier?</h2>
+      <div class="fact-row">
+        <span>60 Aussagen</span><span>5 Werte</span><span>10–15 Minuten</span><span>Läuft nur in deinem Browser</span>
+      </div>
       <div class="intro" style="max-width:100%;">
-        <p>Euer Unternehmen hat eigene Werte erklärt — genau die, die du gleich bewertest. Diese Werte sind wichtige Leitplanken für euer Handeln und sollten sich im Alltag zeigen. Ob das tatsächlich so gelebt wird, wird selten überprüft — genau das ist der Zweck dieser Befragung: Kultur entsteht nicht auf dem Papier, sondern im täglichen Handeln. Deine Antworten machen sichtbar, was davon schon gut funktioniert — und wo noch Potenzial liegt.</p>
-        <p style="margin-top:14px;"><b>Kontext:</b> Es geht nicht um einen einzelnen Vorfall oder eine einzelne Person, sondern darum, wie sich die Zusammenarbeit insgesamt anfühlt — das Muster, nicht die Ausnahme. Deshalb gibt es hier auch keine richtigen oder falschen Antworten: Es zählt dein ehrlicher Eindruck. Am Ende geht es um ein Füreinander, nicht nur ein Miteinander — wie könnt ihr euch gegenseitig helfen, eure Werte im Alltag spürbar zu machen?</p>
-        <p style="margin-top:14px;"><b>Mechanik:</b> Du beantwortest 60 Aussagen zu fünf Werten — bezogen darauf, wie du das Verhalten tatsächlich erlebst, nicht wie es idealerweise sein sollte. Das dauert 10–15 Minuten.</p>
-        <p style="margin-top:14px;"><b>Auswertung:</b> Am Ende bekommst du dein eigenes Ergebnis — nicht die Auswertung des ganzen Teams — und entscheidest selbst, was sich ändern soll. Deine Notizen bleiben konkret: keine abstrakten Vorsätze, sondern eine Maßnahme, die du dir für die kommenden 6 Wochen vornimmst.</p>
-        <p style="margin-top:14px;"><b>Zum Datenschutz:</b> Diese Seite läuft vollständig in deinem Browser — es gibt keinen Server im Hintergrund, an den deine Antworten automatisch gesendet werden. Am Ende lädst du dein Ergebnis selbst als Datei herunter und gibst sie wie mit deinem Team/deiner Beratung vereinbart weiter.</p>
+        <p>Euer Unternehmen hat eigene Werte erklärt — genau die, die du gleich bewertest. Ob sie im Alltag wirklich gelebt werden, wird selten überprüft. Genau das ist der Zweck dieser Befragung: Kultur entsteht nicht auf dem Papier, sondern im täglichen Handeln.</p>
+      </div>
+      <div class="intro-callout">
+        Es gibt hier keine richtigen oder falschen Antworten. Es zählt dein ehrlicher Eindruck — nicht ein einzelner Vorfall, sondern wie du die Zusammenarbeit insgesamt wahrnimmst.
+      </div>
+      <div class="intro" style="max-width:100%; margin-top:14px;">
+        <p>Am Ende geht es um ein Füreinander, nicht nur ein Miteinander: Deine Antworten machen sichtbar, was schon gut funktioniert — und wo ihr euch gegenseitig helfen könnt, eure Werte im Alltag spürbarer zu machen.</p>
+        <p style="margin-top:14px;"><b>Anonymität &amp; Datenschutz:</b> Deine Daten werden anonym behandelt und ausgewertet — es werden weder Name noch E-Mail-Adresse erfasst, es gibt keine Anmeldung. Diese Seite läuft vollständig in deinem Browser, es gibt keinen Server im Hintergrund. Am Ende lädst du dein Ergebnis selbst als Datei herunter und gibst sie wie mit deinem Team/deiner Beratung vereinbart weiter.</p>
+        <p style="margin-top:14px;"><b>Auswertung:</b> Am Ende bekommst du dein eigenes Ergebnis und entscheidest selbst, was sich ändern soll. Deine Notizen bleiben konkret: eine Maßnahme, die du dir für die kommenden 6 Wochen vornimmst.</p>
       </div>
       <div class="nav-row" style="justify-content:flex-end;">
         <div class="nav-btn primary" id="btnStart">Los geht's</div>
@@ -578,7 +776,7 @@ function renderSurveyPage(){
         <input type="text" id="teamInput" placeholder="z. B. Vertrieb, Produktion..." value="${team}">
       </div>
       <div style="margin-top:16px; font-size:12.5px; line-height:1.55; color:#444; background:#FAF8F2; padding:12px 14px; border-left:4px solid var(--teal);">
-        Denk an die vergangenen 12 Monate. Bewerte nicht dich selbst, sondern dein Umfeld im Kontext – wie du es im Team, bei Kolleg:innen oder im Kundenkontakt erlebst, je nach Abschnitt.
+        Denk an die vergangenen 12 Monate. Bewerte nicht dich selbst, sondern wie du dein Umfeld insgesamt wahrnimmst – im Team, bei Kolleg:innen oder im Kundenkontakt, je nach Abschnitt.
       </div>`;
   }
 
@@ -793,7 +991,8 @@ function renderFullAnswersBlock(){
       const cell = cellOf(w, f);
       const rows = cell.items.map((itemNum, i) => `
         <div class="fa-row">
-          <span class="fa-qtext"><b>Frage ${itemNum}</b> — „${cell.q[i]}"</span>
+          <span class="fa-num">${itemNum}</span>
+          <span class="fa-qtext">„${cell.q[i]}"</span>
           <span class="fa-val">${answers[itemNum] === 'nb' ? 'n.b.' : (answers[itemNum] !== undefined ? answers[itemNum]+'/5' : '–/5')}</span>
         </div>`).join('');
       const note = f === AUSNAHME_FELD ? `<div class="bd-rawnote" style="margin-bottom:6px;">${AUSNAHME_HINWEIS}</div>` : '';
@@ -809,22 +1008,8 @@ function renderFullAnswersBlock(){
     </div>`;
 }
 
-function syncPrintFields(){
-  document.querySelectorAll('.gap-textarea').forEach(ta => {
-    const printNode = ta.parentElement.querySelector('.gap-action-print');
-    if(printNode){ printNode.textContent = ta.value || '(keine Maßnahme eingetragen)'; }
-  });
-}
-
-function printResult(){
-  syncPrintFields();
-  window.print();
-}
-
-function renderResults(){
-  const view = document.getElementById('surveyView');
-
-  const matrixRows = WERTE.map(w => {
+function computeMatrixRowsHtml(){
+  return WERTE.map(w => {
     const cells = FELDER.map(f => {
       const cell = cellOf(w, f);
       const [n1,n2,n3] = cell.items;
@@ -835,8 +1020,10 @@ function renderResults(){
     }).join('');
     return `<tr><td class="wert-lbl">${w}</td>${cells}</tr>`;
   }).join('');
+}
 
-  const strengthCardsHtml = strengthCells.map((c, idx) => {
+function computeStrengthCardsHtml(){
+  return strengthCells.map((c, idx) => {
     return `
       <div class="gap-card ${ampelCardClass(c.ampel)} strength-slim strength-compact">
         <div class="strength-row">
@@ -851,9 +1038,17 @@ function renderResults(){
         </div>
       </div>`;
   }).join('');
+}
 
-  const gapCardsHtml = gapCells.map((c, idx) => {
+// printMode=false: interaktives Textfeld (Ergebnis-Seite). printMode=true: statischer Text
+// aus actionTexts, kein Eingabefeld (Danke-Seite / Druck-Report).
+function computeGapCardsHtml(printMode){
+  return gapCells.map((c, idx) => {
     const key = c.wert+'||'+c.feld;
+    const anr = MASSNAHME_ANREGUNG[c.feld];
+    const massnahmeBlock = printMode
+      ? `<div class="gap-action-print">${actionTexts[key] || '(keine Maßnahme eingetragen)'}</div>`
+      : `<div class="ta-wrap"><textarea class="gap-textarea" data-key="${key}" placeholder="z. B. Ich spreche in unserem nächsten Teammeeting offen an, dass...">${actionTexts[key] || ''}</textarea></div>`;
     return `
       <div class="gap-card ${ampelCardClass(c.ampel)}">
         <div class="gap-eyebrow">Potenzialpunkt ${idx+1} · ${c.befundtyp}</div>
@@ -866,17 +1061,27 @@ function renderResults(){
           Eine Kultur trägt nie eine einzelne Person allein — aber jede:r kann etwas dazu beitragen, dass es sich für alle spürbar verändert.
           <span class="small">Genau darum geht es bei der Maßnahme und jeder ist ein Teil des Gesamten — konkret für die kommenden 6 Wochen:</span>
         </div>
-        <div class="ta-wrap">
-          <textarea class="gap-textarea" data-key="${key}" placeholder="z. B. Ich spreche in unserem nächsten Teammeeting offen an, dass...">${actionTexts[key] || ''}</textarea>
-          <div class="print-only gap-action-print"></div>
-        </div>
+        ${anr ? `
+        <div class="anregung-box">
+          <div class="anregung-item"><span class="anregung-label">Eigenes Verhalten:</span> ${anr.eigen}</div>
+          <div class="anregung-item"><span class="anregung-label">Team ansprechen:</span> ${anr.team}</div>
+        </div>` : ''}
+        ${massnahmeBlock}
       </div>`;
   }).join('');
+}
+
+function renderResults(){
+  const view = document.getElementById('surveyView');
+
+  const matrixRows = computeMatrixRowsHtml();
+  const strengthCardsHtml = computeStrengthCardsHtml();
+  const gapCardsHtml = computeGapCardsHtml(false);
 
   view.innerHTML = `
     <div class="card">
       <h2 class="section-h">Dein Ergebnis</h2>
-      <div class="intro" style="max-width:100%;">Das ist deine persönliche Wert-Verhalten-Landkarte, basierend auf deinen eigenen Antworten.</div>
+      <div class="intro" style="max-width:100%;">Das ist deine persönliche Wert-Verhalten-Landkarte, basierend auf deinen eigenen Antworten. Eine teamweite, aggregierte Auswertung entsteht erst, wenn deine Beratung die heruntergeladenen Einzelergebnisse zusammenführt.</div>
 
       <div class="matrix-caption">Deine Matrix</div>
       <table class="dash-matrix">
@@ -887,8 +1092,8 @@ function renderResults(){
       <div class="matrix-footnote">"Zu wenig Antworten" erscheint, wenn weniger als 2 von 3 Verhaltensitems einer Zelle beantwortet wurden.</div>
       ${nbAnteil > 0.3 ? `<div class="banner err" style="margin-top:8px;">Eingeschränkte Aussagekraft: ${Math.round(nbAnteil*100)}% deiner Antworten waren „nicht beurteilbar".</div>` : ''}
 
-      <div class="matrix-caption">Hier seid ihr als Team bereits stark</div>
-      <div class="intro" style="max-width:100%; margin-top:0;">Die drei Zellen mit dem geringsten Abstand zwischen Anspruch und gelebtem Verhalten.</div>
+      <div class="matrix-caption">Hier nimmst du euer Team bereits als stark wahr</div>
+      <div class="intro" style="max-width:100%; margin-top:0;">Hier sind deine am stärksten bewerteten Zellen — belastbare Stärken. Das zeigt sich durch zwei Dinge gleichzeitig: eine Verhaltensbewertung ab 4 und ein Format, das regelmäßig oder konsequent angewendet wird. Es können deshalb auch weniger als drei sein.</div>
       <div class="strength-grid">${strengthCardsHtml}</div>
 
       <div class="matrix-caption">Deine größten Potenzialpunkte</div>
@@ -896,11 +1101,10 @@ function renderResults(){
       <div class="intro" style="max-width:100%; margin-top:6px; font-weight:600; color:var(--navy);">Jetzt geht's um dich: Was willst du hier konkret verändern?</div>
       ${gapCardsHtml}
 
-      ${renderFullAnswersBlock()}
+      <div class="intro" style="max-width:100%; margin-top:20px; font-weight:600; color:var(--navy);">Wenn du fertig bist: Trage deine Maßnahmen oben ein, dann schließe ab. PDF/Druck gibt es im letzten Schritt, mit allem zusammen.</div>
 
       <div id="resultsBanner"></div>
       <div class="nav-row">
-        <div class="nav-btn" id="btnPrint">Als PDF speichern / drucken</div>
         <div class="nav-btn primary" id="btnSaveActions">Ergebnis abschließen &amp; als Datei herunterladen</div>
       </div>
     </div>`;
@@ -929,7 +1133,6 @@ function renderResults(){
     };
   });
 
-  document.getElementById('btnPrint').onclick = () => { printResult(); };
   document.getElementById('btnSaveActions').onclick = () => {
     finishAndExport();
   };
@@ -940,7 +1143,7 @@ function buildPayload(){
     wert: c.wert, feld: c.feld, ampel: c.ampel, avg: c.avg,
     action: actionTexts[c.wert+'||'+c.feld] || ''
   }));
-  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.19', answers, team: team || null, ts: Date.now(), actions };
+  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.20', answers, team: team || null, ts: Date.now(), actions };
 }
 
 // Diese Seite läuft rein im Browser (z. B. als statische GitHub-Pages-Seite) und hat keinen
@@ -980,10 +1183,16 @@ function renderDone(){
       </div>`;
   }).join('');
 
+  const matrixRows = computeMatrixRowsHtml();
+  const strengthCardsHtml = computeStrengthCardsHtml();
+  const gapCardsHtmlPrint = computeGapCardsHtml(true);
+
   view.innerHTML = `
     <div class="card thanks">
       <h2>Danke!</h2>
-      <p>Deine Antworten wurden als Datei auf deinem Gerät heruntergeladen (Ordner „Downloads"). Bitte gib diese Datei wie mit deinem/deiner Berater:in vereinbart weiter — z. B. per E-Mail oder Upload. Das hast du dir für die kommenden 6 Wochen vorgenommen:</p>
+      <p style="text-align:left; margin-top:14px;">Danke, dass du dir die Zeit genommen hast. Der erste Schritt ist getan — jetzt braucht das Team deinen Beitrag, damit die vereinbarten Werte noch spürbarer und wirksamer werden.</p>
+      <p style="text-align:left; margin-top:14px;"><b>Nächste Schritte:</b> Speichere dir diese Seite als PDF oder drucke sie aus — dort findest du auch deine Matrix, Stärken und Potenzialpunkte mit deinen eingetragenen Maßnahmen. Deine Antworten wurden zusätzlich als Datei heruntergeladen (Ordner „Downloads"). Bitte gib diese Datei wie mit deiner Beratung vereinbart weiter — z. B. per E-Mail oder Upload.</p>
+      <p style="text-align:left; margin-top:14px;">Das hast du dir für die kommenden 6 Wochen vorgenommen:</p>
       ${recap}
 
       <div class="checkin-box">
@@ -998,7 +1207,31 @@ function renderDone(){
         <div class="nav-btn" id="btnPrintDone">Als PDF speichern / drucken</div>
         <div class="nav-btn primary" id="btnAnother">Weitere Teilnahme erfassen</div>
       </div>
+
+      <div class="print-only report-cover print-report-start" style="margin-top:24px;">
+        <p class="report-meta">Team/Bereich: ${team || '–'} · Datum: ${new Date().toLocaleDateString('de-DE')}</p>
+        <p style="margin-top:8px;"><b>Anonymität &amp; Datenschutz:</b> Deine Daten wurden anonym behandelt und ausgewertet — es wurden weder Name noch E-Mail-Adresse erfasst, es gab keine Anmeldung. Diese Seite lief vollständig in deinem Browser, es gibt keinen Server im Hintergrund.</p>
+      </div>
+
+      <div class="print-only">
+        <h2 class="section-h" style="margin-top:20px;">Dein Ergebnis</h2>
+        <div class="matrix-caption">Deine Matrix</div>
+        <table class="dash-matrix">
+          <thead><tr><th>Wert</th><th>Alltag &amp; Routinen</th><th>Ausnahmesituationen</th><th>Kunden &amp; Markt</th></tr></thead>
+          <tbody>${matrixRows}</tbody>
+        </table>
+        <div class="matrix-footnote">⚠ = kritischer Hinweis in Ausnahmesituationen (Ø unter 3,5 UND mindestens 2 von 3 Items darunter): ${AUSNAHME_HINWEIS}</div>
+        <div class="matrix-footnote">"Zu wenig Antworten" erscheint, wenn weniger als 2 von 3 Verhaltensitems einer Zelle beantwortet wurden.</div>
+
+        <div class="matrix-caption">Hier nimmst du euer Team bereits als stark wahr</div>
+        <div class="strength-grid">${strengthCardsHtml}</div>
+
+        <div class="matrix-caption">Deine größten Potenzialpunkte</div>
+        ${gapCardsHtmlPrint}
+      </div>
+
       ${renderFullAnswersBlock()}
+      <div class="footnote">MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.20 · Fragenkatalog v4: 5 Kernwerte, 60 Basisfragen</div>
     </div>`;
   document.getElementById('btnPrintDone').onclick = () => { window.print(); };
   document.getElementById('btnAnother').onclick = () => {
