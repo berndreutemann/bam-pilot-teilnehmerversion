@@ -1,7 +1,81 @@
 <!DOCTYPE html>
 <!--
   BAM — Behavior Alignment Matrix · Teilnehmerversion
-  MindnessConsult · Version 1.17
+  MindnessConsult · Version 1.19
+
+  Änderungen zu 1.19 (Textüberarbeitung Startseite/Fragebogen/Bericht, Code-Bereinigung):
+  - Banner (durchgehend sichtbarer Intro-Satz auf jeder Seite) entfernt — trug zeitlich
+    gebundene Aussage ("Nach dem Fragebogen siehst du hier...", nur auf der Startseite
+    korrekt) auf allen Seiten inkl. mitten im Fragebogen, wo sie keinen Sinn ergab.
+  - Startseite auf fünf klar benannte Abschnitte umgestellt: Worum es geht / Kontext /
+    Mechanik / Auswertung / Datenschutz. "Worum es geht" bezieht sich jetzt korrekt auf
+    die eigenen, erklärten Werte des Unternehmens statt auf generische Beispielwerte
+    (vorher "Verlässlichkeit, Wertschätzung oder Offenheit" — "Offenheit" war ohnehin
+    keiner der tatsächlich befragten fünf Werte). Neuer Abschnitt "Kontext": Muster statt
+    Einzelfall, kein Richtig/Falsch, plus "Füreinander statt nur Miteinander"-Leitgedanke.
+    "Auswertung" nennt jetzt die 6-Wochen-Vorausschau vorab.
+  - Hinweisbox im Fragebogen sprachlich repariert (Objekt-Bezug von "bewerte" war zuvor
+    grammatikalisch unsauber) und um "im Kontext" ergänzt, passend zum neuen
+    Kontext-Abschnitt der Startseite.
+  - R-Badge (Reverse-Item-Kennzeichnung) und "· Verankerung"-Zusatz im Fragebogen-Tag
+    entfernt — beide zeigten Methodik-Interna, die für die Beantwortung nicht nötig sind.
+  - Bericht: Potenzialpunkte-Erklärtext ersetzt ("Die drei Zellen mit dem größten
+    Abstand..." war seit v1.18 fachlich nicht mehr korrekt, da die Auswahl längst nach
+    Befundtyp läuft, nicht nach reinem Abstand) — neuer Text erklärt den Quick-Win-vor-
+    Aufbauthema-Mechanismus in Alltagssprache, ohne die Fachbegriffe zu wiederholen.
+  - Bericht: Maßnahmen-Prompt von "Hier sehe ich den größten Handlungsbedarf" auf
+    "Eine Kultur trägt nie eine einzelne Person allein..." umgestellt — verschiebt den
+    Rahmen von individueller Verpflichtung ("was schulde ich") zu Beitrag fürs
+    Füreinander ("was ist mein Teil").
+  - Fragen im Bericht durchgehend mit "Frage N" nummeriert (1-60), analog zum
+    Fragebogen — sowohl in der Einzelfragen-Aufschlüsselung (renderBreakdown, inkl.
+    Fragetyp-4-Zeile) als auch in der vollständigen Antwortliste im Druck
+    (renderFullAnswersBlock).
+  - Fußnotentext zur Ampel-Matrix korrigiert: nannte bisher nur "Ø unter 3,5" als
+    Warnsignal-Bedingung, obwohl seit v1.14 zusätzlich "mindestens 2 von 3 Items
+    darunter" gilt (Variante C) — ohne diesen Zusatz konnte der Text bei einer Zelle mit
+    Ø 3,3 ohne Warnsignal fälschlich nach einem Fehler aussehen.
+  - Code-Bereinigung (Stabilitäts-Audit, keine funktionalen Auswirkungen):
+    · Toter "neutral-dark"-Ampelzustand entfernt (CSS-Variable, drei CSS-Regeln, zwei
+      JS-Abfragen) — computeCellAmpel() erzeugt nie "neutral-dark", nur "neutral".
+    · Nie gelesene Variable nichtAuswertbareZellen entfernt (wurde berechnet, aber
+      nirgends anzeigt — die Matrix zeigt "Nicht auswertbar" bereits direkt pro Zelle).
+    · renderDone()-Reset ergänzt: strengthCells und nbAnteil wurden bisher nicht
+      zurückgesetzt (nur gapCells), inkonsistent bei "Weitere Teilnahme erfassen".
+    · Totes labels-Array in renderFullAnswersBlock entfernt (deklariert, nie verwendet).
+    · Tote CSS-Regeln entfernt: .banner.ok, .muted, .th-special, .qtag .rev
+      (alle ohne jede Verwendung im HTML/JS).
+    · Interne Variable/Parameter isRitual zu isVerankerung umbenannt — Relikt aus der
+      Vor-v1.4-Bezeichnung "Ritual-/Instrument-Existenz", die zu "Organisatorische
+      Verankerung" umbenannt wurde; der alte Name blieb nur im Code stehen.
+    · Tote Variable isRev im Fragebogen entfernt (nur für das jetzt entfernte R-Badge
+      genutzt).
+
+  Änderungen zu 1.18 (Befundlogik Verhalten x Verankerung, Handbuch Kap. 6.5):
+  - Auswahl der Potenzialpunkte und Stärken von reiner Mittelwert-Sortierung auf die
+    Befundtyp-Klassifizierung aus Handbuch Kap. 6.5 / Arbeitstabelle Blatt "Befundmuster"
+    umgestellt: Verhalten (Mittelwert FT1-3) x Verankerung (FT4, binaer >=4 vs. <=3) ->
+    Belastbare Staerke / Fragile Staerke / Quick Win / Aufbauthema.
+  - Verhindert den vorherigen Fehler, dass ein teures Aufbauthema mit niedrigerem
+    Mittelwert vor einem wirkungsvolleren Quick Win landet, nur weil der Mittelwert
+    niedriger ist - genau das Alleinstellungsmerkmal, das Kap. 6.5 beschreibt, war in der
+    Teilnehmerversion bislang nicht umgesetzt.
+  - Potenzial-Bereich: Quick Win, Fragile Staerke UND Aufbauthema konkurrieren nach
+    Prioritaet (1=Quick Win, 2=Fragile Staerke, 3=Aufbauthema) um die 3 Plaetze, Tie-Breaker
+    niedrigerer Mittelwert. "Fragile Staerke" bewusst hier statt im Staerken-Bereich
+    platziert (traegt Handlungscharakter "sichern"; Handbuch: "nicht als gesicherte
+    Staerke berichten").
+  - Staerken-Bereich zeigt ausschliesslich "Belastbare Staerke" (Verhalten >=4,0 UND
+    Verankerung >=4), sortiert nach hoechstem Mittelwert.
+  - Befundtyp erscheint sichtbar im Eyebrow der Potenzialpunkt-Karte (z. B.
+    "Potenzialpunkt 1 - Quick Win").
+  - Zellen ohne beantwortetes Fragetyp-4-Item bleiben unklassifiziert und fliessen nicht
+    in die Potenzial-/Staerken-Auswahl ein (keine Klassifizierung ohne Datenbasis).
+  - BEWUSST NICHT TEIL dieses Releases (siehe Diskussion, groesster Hebel zuerst):
+    Fuehrungsluecke als eigene Prioritaetsstufe (Ueberschneidung mit FT2_HINWEIS erst zu
+    klaeren), Maßnahmentyp-Text je Befundtyp, harte Kappung "max. 1 Aufbauthema".
+  - Handbuch Kap. 9 / Kap. 6.5: dieser Umsetzungs-Gap ist damit fuer die Teilnehmerversion
+    geschlossen; die drei zurueckgestellten Punkte oben sind dort als offen zu ergaenzen.
 
   Änderungen zu 1.17 (Fragetyp-4-Erläuterung feldübergreifend):
   - Struktur-Erläuterung bei Fragetyp 4 (Strukturlücke/Umsetzungslücke/verankert) erscheint
@@ -196,7 +270,7 @@
   :root{
     --cream:#F4F1E9; --navy:#111F3D; --teal:#146873; --red:#7A1620;
     --green:#2E7D46; --amber:#C08A16; --ink:#1A1A1A; --hair:#C9C3B4; --off-dim:#D8D2C0;
-    --neutral:#8A8677; --neutral-dark:#4A473C;
+    --neutral:#8A8677;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{ background:#DCD8CC; font-family:'Inter',sans-serif; display:flex; justify-content:center; padding:32px 12px; color:var(--ink); }
@@ -207,7 +281,6 @@
   .intro{ margin-top:14px; font-size:13.5px; line-height:1.6; color:#333; max-width:680px; }
 
   .card{ background:#fff; border:2px solid var(--navy); padding:22px 24px; margin-top:24px; }
-  .muted{ color:#555; font-size:12.5px; }
 
   /* progress */
   .progress-wrap{ margin-top:20px; }
@@ -222,7 +295,6 @@
   .qrow{ margin-bottom:18px; }
   .qrow:last-child{ margin-bottom:0; }
   .qtag{ font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; font-size:10px; color:#888; display:flex; align-items:center; gap:6px; }
-  .qtag .rev{ background:var(--red); color:#fff; font-size:9px; padding:1px 5px; border-radius:2px; }
   .qtext{ font-size:13.5px; line-height:1.4; margin-top:4px; }
   .scale-row{ display:flex; gap:6px; margin-top:8px; }
   .scale-btn{ flex:1; text-align:center; padding:9px 0; border:1.6px solid var(--navy); background:#fff; color:var(--navy); cursor:pointer; font-family:'Anton',sans-serif; font-size:15px; }
@@ -248,7 +320,6 @@
 
   .banner{ margin-top:14px; padding:10px 13px; font-size:12.5px; border-radius:2px; }
   .banner.err{ background:#f6dede; color:var(--red); border:1px solid var(--red); }
-  .banner.ok{ background:#e2efe4; color:var(--green); border:1px solid var(--green); }
 
   /* Persönliche Matrix */
   .matrix-caption{ font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; font-size:11.5px; color:var(--navy); margin:26px 0 8px; }
@@ -259,8 +330,7 @@
   .cell-inner{ padding:10px 6px; color:#fff; font-weight:700; font-size:12px; }
   .cell-inner .sub{ font-size:9.5px; font-weight:500; opacity:0.9; margin-top:2px; }
   .bg-green{ background:var(--green); } .bg-amber{ background:var(--amber); } .bg-red{ background:var(--red); }
-  .bg-neutral{ background:var(--neutral); } .bg-neutral-dark{ background:var(--neutral-dark); }
-  th.th-special{ position:relative; }
+  .bg-neutral{ background:var(--neutral); }
   .matrix-footnote{ font-size:10.5px; color:#666; margin-top:8px; line-height:1.5; }
 
   /* Potenzialpunkte / Maßnahmen */
@@ -272,8 +342,8 @@
   .gap-sub{ font-size:12px; color:#555; margin-top:3px; }
   .gap-badge{ display:inline-block; font-size:10px; font-weight:700; color:#fff; padding:2px 8px; border-radius:3px; margin-top:6px; }
   .gap-badge.red{ background:var(--red); } .gap-badge.amber{ background:var(--amber); } .gap-badge.green{ background:var(--green); }
-  .gap-badge.neutral{ background:var(--neutral); } .gap-badge.neutral-dark{ background:var(--neutral-dark); }
-  .gap-card.neutral{ border-left-color:var(--neutral); } .gap-card.neutral-dark{ border-left-color:var(--neutral-dark); }
+  .gap-badge.neutral{ background:var(--neutral); }
+  .gap-card.neutral{ border-left-color:var(--neutral); }
   .special-note{ font-size:11.5px; color:#555; background:#F2F0E8; border-left:3px solid var(--neutral); padding:8px 10px; margin-top:10px; line-height:1.5; }
 
   .strength-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:6px; }
@@ -350,15 +420,12 @@
 
   <div class="eyebrow">BAM · DEEP DIVE — TEILNEHMERVERSION</div>
   <h1 id="pageTitle">BAM-Audit</h1>
-  <div class="intro">
-    Nach dem Fragebogen siehst du hier <b>dein eigenes</b> Ergebnis — nicht die Auswertung des ganzen Teams — und legst direkt fest, was du in deinem eigenen Verantwortungsbereich verändern willst.
-  </div>
 
   <div id="surveyView"></div>
 
   <div class="footnote">
     Diese Ansicht zeigt ausschließlich deine eigenen Antworten. Eine teamweite, aggregierte Auswertung über alle Teilnehmenden entsteht erst, wenn deine/dein Berater:in die heruntergeladenen Einzelergebnisse zusammenführt — diese Seite selbst führt keine Daten zusammen und sendet nichts an einen Server.<br>
-    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.17 · Fragenkatalog v4: 5 Kernwerte, 60 Basisfragen
+    MindnessConsult · BAM — Behavior Alignment Matrix · Teilnehmerversion 1.19 · Fragenkatalog v4: 5 Kernwerte, 60 Basisfragen
   </div>
 
 </div>
@@ -402,25 +469,24 @@ let actionTexts = {}; // keyed by "Wert||Feld"
 let gapCells = [];
 let strengthCells = [];
 let nbAnteil = 0;
-let nichtAuswertbareZellen = [];
 
 function cellOf(w, f){ return DATA[w][f]; }
 
 const VERANKERUNG_LABELS = ["nicht vorhanden","kaum bekannt","selten angewendet","regelmäßig angewendet","konsequent angewendet"];
 
-function scaleRow(itemNum, value, isRitual){
+function scaleRow(itemNum, value, isVerankerung){
   let html = `<div class="scale-row" data-item="${itemNum}">`;
   for(let v=1; v<=5; v++){
-    if(isRitual){
+    if(isVerankerung){
       const label = VERANKERUNG_LABELS[v-1].replace(' ', '<br>');
       html += `<div class="scale-btn scale-btn-labeled ${value===v?'sel':''}" data-v="${v}"><div class="sb-num">${v}</div><div class="sb-label">${label}</div></div>`;
     } else {
       html += `<div class="scale-btn ${value===v?'sel':''}" data-v="${v}">${v}</div>`;
     }
   }
-  html += `<div class="scale-btn ${value==='nb'?'sel':''} ${isRitual?'scale-btn-labeled':''}" data-v="nb" style="flex:0 0 auto; padding:9px 10px; font-family:'Barlow Condensed',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.03em;">n.b.</div>`;
+  html += `<div class="scale-btn ${value==='nb'?'sel':''} ${isVerankerung?'scale-btn-labeled':''}" data-v="nb" style="flex:0 0 auto; padding:9px 10px; font-family:'Barlow Condensed',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.03em;">n.b.</div>`;
   html += `</div>`;
-  if(!isRitual){
+  if(!isVerankerung){
     html += `<div class="scale-caption"><span>1 · fast nie</span><span>5 · fast immer</span></div>`;
   }
   return html;
@@ -485,11 +551,11 @@ function renderIntro(){
     <div class="card">
       <h2 class="section-h">Worum geht es hier?</h2>
       <div class="intro" style="max-width:100%;">
-        <p>Die meisten Unternehmen veröffentlichen Werte wie Verlässlichkeit, Wertschätzung oder Offenheit. Ob diese Werte im Arbeitsalltag tatsächlich <b>gelebt</b> werden, wird selten überprüft. Genau das ist der Zweck dieser Befragung.</p>
-        <p style="margin-top:10px;">Du beantwortest 60 Aussagen zu fünf Werten — bezogen darauf, wie du das Verhalten tatsächlich erlebst, nicht wie es idealerweise sein sollte. Das dauert 10–15 Minuten.</p>
-        <p style="margin-top:10px;"><b>Danach siehst du dein eigenes Ergebnis</b> — welche Bereiche bei dir am meisten auseinanderklaffen — und hältst direkt fest, was du selbst dagegen tun willst. Das bleibt konkret und in deinem eigenen Handlungsbereich, keine abstrakten Vorsätze.</p>
-        <p style="margin-top:10px;">Es gibt keine richtigen oder falschen Antworten.</p>
-        <p style="margin-top:10px;"><b>Zum Datenschutz:</b> Diese Seite läuft vollständig in deinem Browser — es gibt keinen Server im Hintergrund, an den deine Antworten automatisch gesendet werden. Am Ende lädst du dein Ergebnis selbst als Datei herunter und gibst sie wie mit deinem Team/deiner Beratung vereinbart weiter.</p>
+        <p>Euer Unternehmen hat eigene Werte erklärt — genau die, die du gleich bewertest. Diese Werte sind wichtige Leitplanken für euer Handeln und sollten sich im Alltag zeigen. Ob das tatsächlich so gelebt wird, wird selten überprüft — genau das ist der Zweck dieser Befragung: Kultur entsteht nicht auf dem Papier, sondern im täglichen Handeln. Deine Antworten machen sichtbar, was davon schon gut funktioniert — und wo noch Potenzial liegt.</p>
+        <p style="margin-top:14px;"><b>Kontext:</b> Es geht nicht um einen einzelnen Vorfall oder eine einzelne Person, sondern darum, wie sich die Zusammenarbeit insgesamt anfühlt — das Muster, nicht die Ausnahme. Deshalb gibt es hier auch keine richtigen oder falschen Antworten: Es zählt dein ehrlicher Eindruck. Am Ende geht es um ein Füreinander, nicht nur ein Miteinander — wie könnt ihr euch gegenseitig helfen, eure Werte im Alltag spürbar zu machen?</p>
+        <p style="margin-top:14px;"><b>Mechanik:</b> Du beantwortest 60 Aussagen zu fünf Werten — bezogen darauf, wie du das Verhalten tatsächlich erlebst, nicht wie es idealerweise sein sollte. Das dauert 10–15 Minuten.</p>
+        <p style="margin-top:14px;"><b>Auswertung:</b> Am Ende bekommst du dein eigenes Ergebnis — nicht die Auswertung des ganzen Teams — und entscheidest selbst, was sich ändern soll. Deine Notizen bleiben konkret: keine abstrakten Vorsätze, sondern eine Maßnahme, die du dir für die kommenden 6 Wochen vornimmst.</p>
+        <p style="margin-top:14px;"><b>Zum Datenschutz:</b> Diese Seite läuft vollständig in deinem Browser — es gibt keinen Server im Hintergrund, an den deine Antworten automatisch gesendet werden. Am Ende lädst du dein Ergebnis selbst als Datei herunter und gibst sie wie mit deinem Team/deiner Beratung vereinbart weiter.</p>
       </div>
       <div class="nav-row" style="justify-content:flex-end;">
         <div class="nav-btn primary" id="btnStart">Los geht's</div>
@@ -512,7 +578,7 @@ function renderSurveyPage(){
         <input type="text" id="teamInput" placeholder="z. B. Vertrieb, Produktion..." value="${team}">
       </div>
       <div style="margin-top:16px; font-size:12.5px; line-height:1.55; color:#444; background:#FAF8F2; padding:12px 14px; border-left:4px solid var(--teal);">
-        Denk an die vergangenen 12 Monate. Bewerte nicht dich selbst, sondern wie du es in deinem Umfeld erlebst – im Team, bei Kolleg:innen oder im Kundenkontakt, je nach Abschnitt.
+        Denk an die vergangenen 12 Monate. Bewerte nicht dich selbst, sondern dein Umfeld im Kontext – wie du es im Team, bei Kolleg:innen oder im Kundenkontakt erlebst, je nach Abschnitt.
       </div>`;
   }
 
@@ -527,13 +593,12 @@ function renderSurveyPage(){
     fieldsHtml += `<div class="field-group"><div class="field-group-title">${f}</div><div style="font-size:11px; color:#777; margin:-8px 0 12px; font-style:italic;">${BEZUG_HINWEIS[f]}</div>`;
     cell.q.forEach((qtext, i) => {
       const itemNum = cell.items[i];
-      const isRev = i === 2;
-      const isRitual = i === 3;
+      const isVerankerung = i === 3;
       fieldsHtml += `
         <div class="qrow">
-          <div class="qtag">Frage ${itemNum}${isRev?'<span class="rev">R</span>':''}${isRitual?' · Verankerung':''}</div>
+          <div class="qtag">Frage ${itemNum}</div>
           <div class="qtext">${qtext}</div>
-          ${scaleRow(itemNum, answers[itemNum], isRitual)}
+          ${scaleRow(itemNum, answers[itemNum], isVerankerung)}
         </div>`;
     });
     fieldsHtml += `</div>`;
@@ -592,22 +657,53 @@ function prepareResults(){
       all.push({
         wert:w, feld:f, ...r,
         q1, q2, q3raw, invQ3, q4,
+        n1, n2, n3, n4,
         text1: cell.q[0], text2: cell.q[1], text3: cell.q[2], text4: cell.q[3]
       });
     });
   });
   const evaluable = all.filter(c => !c.notEvaluable);
-  const nichtAuswertbar = all.filter(c => c.notEvaluable);
-  evaluable.sort((a,b) => a.avg - b.avg);
-  gapCells = evaluable.slice(0, 3);
+
+  // Befundtyp-Klassifizierung (Handbuch v1.7 Kap. 6.5, Arbeitstabelle Blatt "Befundmuster"):
+  // Verhalten (Mittelwert Fragetyp 1-3) x Verankerung (Fragetyp 4, binaer >=4 vs. <=3).
+  // Ersetzt die vorherige reine Mittelwert-Sortierung - vermeidet, dass ein teures
+  // Aufbauthema vor einem wirkungsvolleren Quick Win landet, nur weil dessen Mittelwert
+  // niedriger ist. Faelle ohne beantwortetes Fragetyp-4-Item bleiben unklassifiziert und
+  // fliessen nicht in Potenzial-/Staerken-Auswahl ein (keine Klassifizierung ohne Datenbasis).
+  function classifyBefundtyp(avg, q4){
+    if(q4 === 'nb' || q4 === undefined || q4 === null) return null;
+    const verankertHoch = q4 >= 4;
+    if(avg >= 4.0){ return verankertHoch ? 'Belastbare Stärke' : 'Fragile Stärke'; }
+    return verankertHoch ? 'Quick Win' : 'Aufbauthema';
+  }
+  // Prioritaet ohne Fuehrungsluecke (bewusst nicht Teil dieses Release, siehe Diskussion):
+  // 1=Quick Win, 2=Fragile Staerke (sichern), 3=Aufbauthema, 4=Belastbare Staerke.
+  const PRIO = { 'Quick Win':1, 'Fragile Stärke':2, 'Aufbauthema':3, 'Belastbare Stärke':4 };
+
+  const classified = evaluable
+    .map(c => ({ ...c, befundtyp: classifyBefundtyp(c.avg, c.q4) }))
+    .filter(c => c.befundtyp !== null);
+
+  // Potenzial-Bereich: Quick Win, Fragile Staerke UND Aufbauthema konkurrieren nach
+  // Prioritaet um die 3 Plaetze - "Fragile Staerke" traegt Handlungscharakter ("sichern")
+  // und gehoert deshalb hierhin, nicht in den reinen Bestaetigungs-Staerken-Bereich
+  // (Handbuch: "nicht als gesicherte Staerke berichten").
+  gapCells = classified
+    .filter(c => c.befundtyp !== 'Belastbare Stärke')
+    .sort((a,b) => (PRIO[a.befundtyp] - PRIO[b.befundtyp]) || (a.avg - b.avg))
+    .slice(0, 3);
   gapCells.forEach(c => { const key = c.wert+'||'+c.feld; if(!(key in actionTexts)) actionTexts[key] = ''; });
-  strengthCells = evaluable.slice(-3).reverse();
+
+  // Staerken-Bereich: ausschliesslich "Belastbare Staerke" (Verhalten >=4,0 UND Verankerung >=4).
+  strengthCells = classified
+    .filter(c => c.befundtyp === 'Belastbare Stärke')
+    .sort((a,b) => b.avg - a.avg)
+    .slice(0, 3);
 
   // "nicht beurteilbar"-Anteil über den gesamten Fragebogen (Fragetyp 1-3, 45 Items)
   const alleVerhaltensAntworten = WERTE.flatMap(w => FELDER.flatMap(f => cellOf(w,f).items.slice(0,3).map(n => answers[n])));
   const nbAnzahl = alleVerhaltensAntworten.filter(v => v === 'nb').length;
   nbAnteil = alleVerhaltensAntworten.length ? nbAnzahl / alleVerhaltensAntworten.length : 0;
-  nichtAuswertbareZellen = nichtAuswertbar;
 }
 
 function extremeKeys(c, mode){
@@ -625,9 +721,9 @@ function renderBreakdown(c, mode='min'){
   const keys = extremeKeys(c, mode);
   const highlightClass = mode === 'max' ? 'bd-strong' : 'bd-weak';
   const rows = [
-    { key:'q1', val:c.q1, text:c.text1, revNote:null },
-    { key:'q2', val:c.q2, text:c.text2, revNote:null },
-    { key:'invq3', val:c.invQ3, text:c.text3, revNote: c.q3raw === 'nb' ? null : `Ursprüngliche Antwort: ${c.q3raw}/5 — hier umgekehrt betrachtet, weil die Frage gegenteilig formuliert war.` }
+    { key:'q1', val:c.q1, text:c.text1, num:c.n1, revNote:null },
+    { key:'q2', val:c.q2, text:c.text2, num:c.n2, revNote:null },
+    { key:'invq3', val:c.invQ3, text:c.text3, num:c.n3, revNote: c.q3raw === 'nb' ? null : `Ursprüngliche Antwort: ${c.q3raw}/5 — hier umgekehrt betrachtet, weil die Frage gegenteilig formuliert war.` }
   ].map(row => {
     const isHighlight = keys.includes(row.key);
     const isNb = row.val === 'nb' || row.val === null;
@@ -638,7 +734,7 @@ function renderBreakdown(c, mode='min'){
     return `
       <div class="bd-row ${isHighlight?highlightClass:''}">
         <div class="bd-top">
-          <span class="bd-qtext-main">„${row.text}"</span>
+          <span class="bd-qtext-main"><b>Frage ${row.num}</b> — „${row.text}"</span>
           <span class="bd-val">${isNb ? 'n.b.' : row.val+'/5'}</span>
         </div>
         ${note ? `<div class="bd-rawnote">${note}</div>` : ''}
@@ -656,7 +752,7 @@ function renderBreakdown(c, mode='min'){
   const q4Row = `
       <div class="bd-row">
         <div class="bd-top">
-          <span class="bd-qtext-main">„${c.text4}"</span>
+          <span class="bd-qtext-main"><b>Frage ${c.n4}</b> — „${c.text4}"</span>
           <span class="bd-val">${isQ4Nb ? 'n.b.' : c.q4+'/5'}</span>
         </div>
         ${strukturNote}
@@ -683,11 +779,11 @@ function renderAusnahmeToggle(id){
 }
 
 function ampelBadgeClass(ampel){
-  if(ampel === 'neutral' || ampel === 'neutral-dark') return ampel;
+  if(ampel === 'neutral') return ampel;
   return ampel === 'red' ? 'red' : (ampel === 'amber' ? 'amber' : 'green');
 }
 function ampelCardClass(ampel){
-  if(ampel === 'neutral' || ampel === 'neutral-dark') return ampel;
+  if(ampel === 'neutral') return ampel;
   return ampel === 'green' ? 'green' : (ampel === 'amber' ? 'amber' : '');
 }
 
@@ -695,10 +791,9 @@ function renderFullAnswersBlock(){
   const sections = WERTE.map(w => {
     const fields = FELDER.map(f => {
       const cell = cellOf(w, f);
-      const labels = ['Verhaltens-Frequenz', 'Ergänzendes Verhaltens-Item', 'Reverse-Item (Rohwert)', 'Organisatorische Verankerung'];
       const rows = cell.items.map((itemNum, i) => `
         <div class="fa-row">
-          <span class="fa-qtext">„${cell.q[i]}"</span>
+          <span class="fa-qtext"><b>Frage ${itemNum}</b> — „${cell.q[i]}"</span>
           <span class="fa-val">${answers[itemNum] === 'nb' ? 'n.b.' : (answers[itemNum] !== undefined ? answers[itemNum]+'/5' : '–/5')}</span>
         </div>`).join('');
       const note = f === AUSNAHME_FELD ? `<div class="bd-rawnote" style="margin-bottom:6px;">${AUSNAHME_HINWEIS}</div>` : '';
@@ -761,15 +856,15 @@ function renderResults(){
     const key = c.wert+'||'+c.feld;
     return `
       <div class="gap-card ${ampelCardClass(c.ampel)}">
-        <div class="gap-eyebrow">Potenzialpunkt ${idx+1}</div>
+        <div class="gap-eyebrow">Potenzialpunkt ${idx+1} · ${c.befundtyp}</div>
         <div class="gap-title">${c.wert}</div>
         <div class="gap-sub">${c.feld}</div>
         <span class="gap-badge ${ampelBadgeClass(c.ampel)}">${c.label} · Ø ${c.avg.toFixed(2)}</span>
         ${c.kritischerHinweis ? renderAusnahmeToggle('gap'+idx) : ''}
         ${renderBreakdown(c, 'min')}
         <div class="gap-prompt">
-          Hier sehe ich den größten Handlungsbedarf.
-          <span class="small">Das werde ich dafür tun, damit die Lücke zwischen Anspruch und Wirklichkeit geschlossen wird — konkrete Maßnahme für die kommenden 6 Wochen:</span>
+          Eine Kultur trägt nie eine einzelne Person allein — aber jede:r kann etwas dazu beitragen, dass es sich für alle spürbar verändert.
+          <span class="small">Genau darum geht es bei der Maßnahme und jeder ist ein Teil des Gesamten — konkret für die kommenden 6 Wochen:</span>
         </div>
         <div class="ta-wrap">
           <textarea class="gap-textarea" data-key="${key}" placeholder="z. B. Ich spreche in unserem nächsten Teammeeting offen an, dass...">${actionTexts[key] || ''}</textarea>
@@ -788,7 +883,7 @@ function renderResults(){
         <thead><tr><th>Wert</th><th>Alltag &amp; Routinen</th><th>Ausnahmesituationen</th><th>Kunden &amp; Markt</th></tr></thead>
         <tbody>${matrixRows}</tbody>
       </table>
-      <div class="matrix-footnote">⚠ = kritischer Hinweis in Ausnahmesituationen (Ø unter 3,5): ${AUSNAHME_HINWEIS}</div>
+      <div class="matrix-footnote">⚠ = kritischer Hinweis in Ausnahmesituationen (Ø unter 3,5 UND mindestens 2 von 3 Items darunter): ${AUSNAHME_HINWEIS}</div>
       <div class="matrix-footnote">"Zu wenig Antworten" erscheint, wenn weniger als 2 von 3 Verhaltensitems einer Zelle beantwortet wurden.</div>
       ${nbAnteil > 0.3 ? `<div class="banner err" style="margin-top:8px;">Eingeschränkte Aussagekraft: ${Math.round(nbAnteil*100)}% deiner Antworten waren „nicht beurteilbar".</div>` : ''}
 
@@ -797,7 +892,7 @@ function renderResults(){
       <div class="strength-grid">${strengthCardsHtml}</div>
 
       <div class="matrix-caption">Deine größten Potenzialpunkte</div>
-      <div class="intro" style="max-width:100%; margin-top:0;">Die drei Zellen mit dem größten Abstand zwischen Anspruch und gelebtem Verhalten — bewusst auf max. 3 begrenzt, damit es umsetzbar bleibt.</div>
+      <div class="intro" style="max-width:100%; margin-top:0;">Hier stehen nicht zwangsläufig die niedrigsten Werte, sondern die mit dem größten Hebel: Wo es bereits ein Format oder eine Regelung gibt, die nur zu selten genutzt wird, lässt sich schnell etwas verändern. Wo eine solche Grundlage komplett fehlt, dauert der Aufbau länger und eher ein Thema für das gesamte Team.</div>
       <div class="intro" style="max-width:100%; margin-top:6px; font-weight:600; color:var(--navy);">Jetzt geht's um dich: Was willst du hier konkret verändern?</div>
       ${gapCardsHtml}
 
@@ -845,7 +940,7 @@ function buildPayload(){
     wert: c.wert, feld: c.feld, ampel: c.ampel, avg: c.avg,
     action: actionTexts[c.wert+'||'+c.feld] || ''
   }));
-  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.17', answers, team: team || null, ts: Date.now(), actions };
+  return { tool: 'BAM Deep Dive', version: 'Teilnehmerversion 1.19', answers, team: team || null, ts: Date.now(), actions };
 }
 
 // Diese Seite läuft rein im Browser (z. B. als statische GitHub-Pages-Seite) und hat keinen
@@ -907,7 +1002,7 @@ function renderDone(){
     </div>`;
   document.getElementById('btnPrintDone').onclick = () => { window.print(); };
   document.getElementById('btnAnother').onclick = () => {
-    answers = {}; team=''; currentWertIdx=0; actionTexts={}; gapCells=[]; stage='intro'; render();
+    answers = {}; team=''; currentWertIdx=0; actionTexts={}; gapCells=[]; strengthCells=[]; nbAnteil=0; stage='intro'; render();
   };
 }
 
